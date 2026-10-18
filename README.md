@@ -1,5 +1,15 @@
 # Pixel Problem Solver
 
+**Taking over this game? Start with [START HERE](docs/START_HERE.md).**
+You can talk to Claude in everyday language; you do not need to know how to code.
+
+- [Set up your own GitHub copy](docs/YOUR_GITHUB_REPO.md) so your work is saved under your account.
+- [Plan with Claude before building](docs/PLAN_WITH_CLAUDE.md) to avoid spending your time and usage on the wrong change.
+- [Where we left off](docs/HANDOFF.md) gives the next chat the current state.
+- [Instructions for Claude](CLAUDE.md) tell it how to plan, check, document, and save work.
+
+The rest of this README describes the game for Claude and anyone who wants more detail.
+
 A GameMaker (2024.14) game where a student builds a plan out of picture buttons,
 writes down what they think will happen, and then watches what really happens.
 XP is earned for steps that were both **done in the right order** and **named in
@@ -156,4 +166,3 @@ sentences, and **"Try again"** rather than "Retry".
 - No sound.
 - The log is per machine; there is no cloud sync.
 - Two students who type the same name share one record.
-"# JennyGame" 
