@@ -1,12 +1,15 @@
 # Pixel Problem Solver
 
-**Taking over this game? Start with [START HERE](docs/START_HERE.md).**
+**Working on this game? Start with [START HERE](docs/START_HERE.md).**
 You can talk to Claude in everyday language; you do not need to know how to code.
 
-- [Set up your own GitHub copy](docs/YOUR_GITHUB_REPO.md) so your work is saved under your account.
+- [Work together in the shared GitHub repo](docs/WORKING_TOGETHER.md) so both people can contribute to the same game.
 - [Plan with Claude before building](docs/PLAN_WITH_CLAUDE.md) to avoid spending your time and usage on the wrong change.
 - [Where we left off](docs/HANDOFF.md) gives the next chat the current state.
 - [Instructions for Claude](CLAUDE.md) tell it how to plan, check, document, and save work.
+
+For an independent version of the game, there is also an
+[optional separate-repo guide](docs/YOUR_GITHUB_REPO.md).
 
 The rest of this README describes the game for Claude and anyone who wants more detail.
 

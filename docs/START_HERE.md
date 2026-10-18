@@ -1,4 +1,4 @@
-# Start here: make this game yours
+# Start here: work on the game together
 
 You decide what the game should do. Claude handles the code, the notes, and saving
 the work. Talk to it like a person. You do not need special prompts.
@@ -19,15 +19,18 @@ For the desktop interface, see the
 
 Say this, or use your own words:
 
-> I'm taking over this game and I don't code. Read CLAUDE.md and docs/HANDOFF.md.
-> Tell me where we left off. Help me set up my own GitHub repository before we
-> change the game. Guide me one step at a time and do the technical parts for me.
+> I'm working on this game with Gavin and I don't code. Read CLAUDE.md and
+> docs/HANDOFF.md. Help me connect to our shared repository and get up to date.
+> Commit and push my work on its own task branch and open a pull request when
+> it's ready. Don't merge it until I approve. Guide me one step at a time and
+> do the technical parts for me.
 
-## 2. Give your work a home
+## 2. Connect to the shared game
 
-Follow [Set up your own GitHub copy](YOUR_GITHUB_REPO.md) with Claude.
-This is a one-time setup. Afterward, Claude is instructed to keep that copy
-updated as you work.
+Follow [Work together](WORKING_TOGETHER.md) with Claude. You need your own
+GitHub account and an invitation from Gavin to contribute to the shared repo.
+You each keep a local copy on your own computer, connected to the same project
+on GitHub. Claude handles downloading updates and uploading your work.
 
 ## 3. Try the starting game
 
@@ -57,12 +60,13 @@ Correct Claude if its explanation does not match your idea. Once it does, say
 
 Open the **same folder**, start a Claude Code chat, and say:
 
-> Read CLAUDE.md and docs/HANDOFF.md, check my GitHub copy, and help me pick up
-> where we left off.
+> Read CLAUDE.md and docs/HANDOFF.md, check our shared repo and any open work,
+> and help me pick up where we left off.
 
 You can also say "I'm done for today. Save our work and leave notes for next
 time." Check Claude's final message for **saved on GitHub**, or a clear reason
-it could not upload. A chat saying "done" is not proof of a successful upload.
+it could not upload. Work saved on a task branch joins the shared `main` version
+after review and merging. A chat saying "done" is not proof of either step.
 
 These documents travel with the game. Old chats and Claude's personal memory
 may not travel to a new computer, account, or helper, so Claude must keep the

@@ -71,7 +71,9 @@ agree to or correct. You do not need a long design document.
 When it matches your idea, approve the plan in the interface and say **"Yes,
 build that."** Leave Plan mode using the offered approval controls or mode
 selector so Claude can edit. It should save the agreed plan in the handoff
-notes, make the change, check it, and upload the work to your repo.
+notes, make the change, check it, and upload the work to a task branch in the
+shared repo. It should open a pull request for review before the change is
+merged into the shared `main` version. See [Work together](WORKING_TOGETHER.md).
 
 ## Keep it practical
 

@@ -2,8 +2,8 @@
 
 ## Help the person, not just the code
 
-The incoming owner is a beginner who wants to talk naturally and have you do
-the technical work. Use short, plain explanations. Accept rough ideas and
+The incoming collaborator is a beginner who wants to talk naturally and have
+you do the technical work. Use short, plain explanations. Accept rough ideas and
 ordinary language; do not require prompt templates, code knowledge, or a
 technical specification. Ask one useful question at a time, offer a sensible
 default when possible, and handle routine implementation choices yourself.
@@ -11,17 +11,19 @@ default when possible, and handle routine implementation choices yourself.
 ## Start each session
 
 1. Read `docs/HANDOFF.md` for the current task, agreed decisions, verification
-   gaps, and repository destination. Read relevant parts of `README.md` and
-   inspect the actual game files before making claims about behavior.
+   gaps, and shared repository destination. Read relevant parts of `README.md`
+   and inspect the actual game files before making claims about behavior.
 2. Inspect Git status, the current branch and tracking branch, and remote fetch
-   and push URLs. Preserve existing work. Fetch the confirmed working remote
-   when available; fast-forward only when the working tree is clean and safe.
-   If local and remote changes conflict, preserve both and resolve deliberately.
-3. For a new owner without a confirmed personal repo, use
-   `docs/YOUR_GITHUB_REPO.md` to guide setup before game edits. Gavin's source is
-   `https://github.com/gavinscottlaird/JennyGame.git`; receiving a copy does not
-   authorize pushing changes there. Explicit authorization from its owner to
-   work on the source takes precedence. Do not change remotes based on a guess.
+   and push URLs. Preserve existing work. In editing mode, fetch the confirmed
+   working remote when available; fast-forward only when clean and safe. In
+   Plan mode, defer Git mutations until editing is enabled. Inspect open pull
+   requests when accessible so you know what the other person is working on.
+3. The agreed shared repo is `https://github.com/gavinscottlaird/JennyGame.git`,
+   with `main` as the shared integration branch. Guide new collaborators through
+   `docs/WORKING_TOGETHER.md`: their own account, an accepted invitation, and a
+   local clone. Verify access; do not assume the invitation is already accepted.
+   Reuse an existing clone and preserve local edits. Do not create a separate
+   repo or redirect `origin` unless the user explicitly chooses independence.
 
 Read other guides as needed; do not reread every document on each small task.
 Treat handoff notes as context to verify, not proof of the current Git state.
@@ -44,13 +46,18 @@ Treat handoff notes as context to verify, not proof of the current Git state.
 - Keep planning proportional. Avoid speculative research, large rewrites, or
   long reports that spend the user's limited time and usage without benefit.
 
-## Maintain the user's repository as part of doing the work
+## Maintain the shared repository as part of doing the work
 
-After the user confirms their destination and authorizes ongoing commit/push
-as described in `docs/YOUR_GITHUB_REPO.md`, treat it as standing authorization
-for ordinary checkpoints and uploads there. Do not make the user remember Git
-commands or repeat permission each time. Respect later changes to that choice
-and any tool permission requirements.
+After the user authorizes ongoing commit/push and pull requests as described in
+`docs/WORKING_TOGETHER.md`, treat that as standing authorization for ordinary
+checkpoints, task-branch uploads, and pull requests there. Do not make the user
+remember Git commands or repeat permission each time. Respect later changes
+and tool permissions. Upload permission alone does not authorize merging.
+
+For a new task, start a separate, clearly named branch from updated `main`
+once editing is enabled. For an unfinished task, continue its existing branch
+after checking the handoff and remote state. Do not put unrelated tasks on
+another person's branch or routinely push feature work straight to `main`.
 
 For each completed, coherent change:
 
@@ -64,18 +71,31 @@ For each completed, coherent change:
 3. Review the diff and status. Stage the intended source and docs explicitly;
    keep unrelated user edits out unless asked to include them. Never upload
    credentials, real player logs, generated builds, or machine-specific files.
-4. Commit the work and notes with a clear message. Push to the confirmed user's
-   repo and intended branch, preserving history. Verify the remote branch's
-   commit matches the local one; a successful local commit is not an upload.
+4. Commit the work and notes with a clear message. Push to the shared repo's
+   task branch, preserving history. Verify the remote commit matches the local
+   one, then open or update its pull request with a brief result and checks.
+   If PR creation is unavailable, keep the uploaded branch and give the user a
+   comparison link or the exact next step. Do not claim a PR exists if it failed.
 5. Report briefly: what changed, what was checked or still needs checking,
    and whether it is **saved on GitHub**. Include the repo/commit link when
-   available. Mention any uncommitted work that remains.
+   available. Distinguish **saved on GitHub (task branch)** from **merged into
+   main**, and mention any uncommitted work. Share the PR link for review.
+
+Merge only under explicit user authorization or an already-agreed merge policy,
+after appropriate review/checks and repository requirements. Include changes
+from current `main` before merging when needed, resolve conflicts preserving
+both people's intent, and recheck affected behavior. Do not blindly choose
+"ours" or "theirs". Reconcile both people's handoff notes instead of discarding
+one version. Get the updated `main` before starting the next independent task.
+Before switching to another version while GameMaker is open, have the user save
+and close/reload the project as needed so unsaved editor changes are preserved.
 
 Do not force-push, discard work, rewrite shared history, or push to an
 unconfirmed destination. If a push is rejected, fetch and inspect the cause;
 resolve only when both versions can be preserved and intent is clear. For a
-protected branch, use the permitted branch/pull-request workflow and explain
-where the work is saved. Do not bypass repository protections.
+protected branch, follow its requirements and explain where the work is saved.
+Do not bypass repository protections. A shared GitHub repo does not synchronize
+another person's local files automatically; they need to fetch/pull updates.
 
 If upload is blocked by sign-in, network access, or permissions, preserve the
 work locally and commit if possible. Record the pending upload in the handoff

@@ -1,4 +1,9 @@
-# Set up your own GitHub copy
+# Optional: create an independent GitHub copy
+
+**For working on this game with Gavin, use [WORKING_TOGETHER.md](WORKING_TOGETHER.md)
+instead.** You each need an account and a local copy, and both contribute to
+the shared repo. The steps below are only for choosing a separate version that
+will have its own history of future changes.
 
 ## Why this is worth doing once
 
@@ -7,7 +12,9 @@ A **repository**, or **repo**, is the game's folder plus its change history.
 
 Your own repo gives you a place you control, checkpoints to recover from a bad
 change, and a way to move to another computer or hand the game to someone else.
-You can experiment without needing permission to change Gavin's original.
+You can experiment independently. Changes in this separate repo do not
+automatically reach the shared game, and shared-game updates do not
+automatically reach this copy.
 
 There are three different kinds of saving:
 
@@ -18,7 +25,8 @@ There are three different kinds of saving:
 | Push | Those checkpoints are uploaded to GitHub. |
 
 **A commit alone does not upload your work.** Claude should do both the commit
-and the push after each completed change. GitHub stores the game project; the
+and the push after each completed change. The shared workflow also saves task
+branches, then combines them through pull requests. GitHub stores the game project; the
 game's player scores stay on the computer where the game was played.
 
 ## 1. Create an empty repo under your account
@@ -67,6 +75,8 @@ address in `docs/HANDOFF.md`. You should not need to repeat this setup next time
 
 Read these together with [CLAUDE.md](../CLAUDE.md):
 
+- Use this procedure only after the user explicitly chooses an independent
+  repo. Do not redirect a collaborator away from the shared repo by default.
 - Inspect the working folder, Git status, branch, remotes, and existing local
   changes first. Verify the supplied destination belongs to the user or is one
   they explicitly authorized. Do not guess an account or create a second repo
