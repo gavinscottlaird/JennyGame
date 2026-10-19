@@ -112,7 +112,10 @@ if (!result_on) {
         var bkey = sc.spots[bi];
         var bp   = places[$ bkey];
         var bhot = (state == "pick") && hit_circle(mx, my, bp.bx, bp.by, BTN_R + 3);
-        draw_action_button(bp.bx, bp.by, A[$ bkey], bhot, chain_count(chain, bkey), state == "pick");
+        var btip = "";
+        if (is_choice && variable_struct_exists(sc.describe, bkey)) btip = sc.describe[$ bkey];
+        var bon  = (state == "pick") && (!is_choice || chain_count(chain, bkey) == 0);
+        draw_action_button(bp.bx, bp.by, A[$ bkey], bhot, chain_count(chain, bkey), bon, btip);
     }
 }
 
@@ -122,12 +125,22 @@ draw_set_colour(C.ink);
 draw_rectangle(0, 0, SCR_W, 92, false);
 draw_set_alpha(1);
 
-draw_txt(24, 12, sc.goal, 2, C.gold);
-draw_txt(24, 42, "Tier " + string(sc.tier) + ": " + sc.tier_kid, 1, C.panel_lo);
+if (is_choice) {
+    draw_txt(24, 10, sit_text, 2, C.gold);
+} else {
+    draw_txt(24, 12, sc.goal, 2, C.gold);
+    draw_txt(24, 42, "Tier " + string(sc.tier) + ": " + sc.tier_kid, 1, C.panel_lo);
+}
 
-var chx = 330;
+var chx = is_choice ? 24 : 330;
+if (is_choice && array_length(chain) > 0) {
+    draw_txt(chx, CHAIN_Y, "Your plan:", 2, C.panel_lo, fa_left, fa_middle);
+    chx += txt_w("Your plan:", 2) + 12;
+}
 if (array_length(chain) == 0) {
-    draw_txt(chx, CHAIN_Y, "Pick what to do. Tap the round buttons.", 2, C.panel_lo, fa_left, fa_middle);
+    var hint = is_choice ? "Tap the round buttons in the order you want."
+                         : "Pick what to do. Tap the round buttons.";
+    draw_txt(chx, CHAIN_Y, hint, 2, C.panel_lo, fa_left, fa_middle);
 } else {
     for (var ci = 0; ci < array_length(chain); ci++) {
         var clab = chain_label(chain[ci]);
@@ -141,6 +154,16 @@ if (array_length(chain) == 0) {
             chx += 20;
         }
     }
+}
+
+// choice levels: the reminder stays on screen while planning
+if (is_choice && (state == "pick" || state == "choose")) {
+    var rtw = txt_w(sc.reminder, 2) + 32;
+    draw_set_alpha(0.86);
+    draw_set_colour(C.ink);
+    draw_rectangle(SCR_W * 0.5 - rtw * 0.5, 100, SCR_W * 0.5 + rtw * 0.5, 132, false);
+    draw_set_alpha(1);
+    draw_txt(SCR_W * 0.5, 116, sc.reminder, 2, C.bad, fa_center, fa_middle);
 }
 
 // take the last pick back
@@ -165,10 +188,14 @@ draw_set_colour(C.ink);
 draw_rectangle(0, BAR_Y, SCR_W, SCR_H, false);
 draw_set_alpha(1);
 
-var go_txt = "Check what happens";
+var go_txt = is_choice ? "I'm ready to guess" : "Check what happens";
+if (state == "intro")  go_txt = "Start";
+if (state == "choose") go_txt = "Show me what happens";
 if (result_on) go_txt = (kind == "win") ? "Next one" : "Try again";
 var go_r   = rect_go();
-var go_on  = (result_on || array_length(chain) > 0);
+var go_on  = (result_on || array_length(chain) > 0 || state == "intro");
+if (state == "choose") go_on = (pick >= 0);
+if (state == "anim" && !result_on) go_on = false;
 var go_hot = hit_rect(mx, my, go_r) && go_on;
 draw_text_button(go_r[0], go_r[1], go_r[2], go_r[3], go_txt, 3, go_hot, go_on ? C.gold : C.panel_lo);
 
@@ -192,7 +219,27 @@ if (result_on) {
 }
 
 // ---------------------------------------------------------------- ending panel
-if (result_on) {
+if (result_on && is_choice) {
+    var qx1 = 120, qx2 = SCR_W - 120, qy1 = 404, qy2 = 650;
+    var qw  = qx2 - qx1 - 60;
+    draw_set_alpha(0.55);
+    draw_set_colour(C.shade);
+    draw_rectangle(0, ROOM_TOP, SCR_W, ROOM_BOT, false);
+    draw_set_alpha(1);
+
+    var matched = (outcome_score.xp == 2);
+    draw_panel(qx1, qy1, qx2, qy2);
+    draw_txt(SCR_W * 0.5, qy1 + 24, matched ? "Your guess matched!" : "Not what you guessed!", 3,
+             matched ? C.good : C.bad, fa_center, fa_middle);
+    draw_txt_wrap(SCR_W * 0.5, qy1 + 48, ending.text, 2, C.ink, qw);
+    draw_txt(SCR_W * 0.5, qy1 + 120, txt_fit("You guessed: " + sc.predict[pick], 2, qw), 2, C.wall, fa_center, fa_top);
+    if (!matched) {
+        draw_txt(SCR_W * 0.5, qy1 + 146, txt_fit("What happened: " + sc.predict[ending.pick], 2, qw), 2, C.wall, fa_center, fa_top);
+    }
+    draw_txt(SCR_W * 0.5, qy2 - 62, "You got " + string(outcome_score.xp)
+             + (outcome_score.xp == 1 ? " point" : " points"), 3, C.ink, fa_center, fa_top);
+    draw_txt_wrap(SCR_W * 0.5, qy2 - 26, outcome_score.why, 1, C.wall, qw);
+} else if (result_on) {
     var rx1 = 120, rx2 = SCR_W - 120, ry1 = 452, ry2 = 640;
     draw_set_alpha(0.55);
     draw_set_colour(C.shade);
@@ -236,4 +283,47 @@ if (state == "modal") {
     }
     draw_txt(SCR_W * 0.5, my1 + 180, "Type your guess. Then press Enter.", 2, C.wall, fa_center, fa_top);
     draw_txt(SCR_W * 0.5, my1 + 212, "Say what you will do and what you think will happen.", 1, C.wall, fa_center, fa_top);
+}
+
+// ---------------------------------------------------------------- choice levels: situation card
+if (state == "intro") {
+    draw_set_alpha(0.78);
+    draw_set_colour(C.shade);
+    draw_rectangle(0, 0, SCR_W, BAR_Y, false);
+    draw_set_alpha(1);
+
+    var iw = 1000, ih = 330;
+    var ix1 = (SCR_W - iw) * 0.5, iy1 = 150;
+    draw_panel(ix1, iy1, ix1 + iw, iy1 + ih);
+    draw_txt(SCR_W * 0.5, iy1 + 36, sc.tier_name, 4, C.ink, fa_center, fa_middle);
+    draw_txt_wrap(SCR_W * 0.5, iy1 + 84, sit_text, 3, C.ink, iw - 80);
+    draw_txt_wrap(SCR_W * 0.5, iy1 + 170, sc.reminder, 2, C.bad, iw - 80);
+    draw_txt_wrap(SCR_W * 0.5, iy1 + 220,
+                  "Put the mouse on a round button to see what it does. Tap the buttons in the order you want. Then guess what will happen.",
+                  2, C.wall, iw - 120);
+}
+
+// ---------------------------------------------------------------- choice levels: the guess menu
+if (state == "choose") {
+    draw_set_alpha(0.82);
+    draw_set_colour(C.shade);
+    draw_rectangle(0, 0, SCR_W, BAR_Y, false);
+    draw_set_alpha(1);
+
+    draw_txt(SCR_W * 0.5, 150, "What do you think will happen?", 3, C.white, fa_center, fa_middle);
+    var plan_words = "";
+    for (var pj = 0; pj < array_length(chain); pj++) plan_words += (pj > 0 ? " > " : "") + chain_label(chain[pj]);
+    draw_txt(SCR_W * 0.5, 186, "Your plan: " + plan_words, 2, C.panel_lo, fa_center, fa_middle);
+
+    for (var gi = 0; gi < array_length(sc.predict); gi++) {
+        var gr   = choice_rect(gi);
+        var ghot = hit_rect(mx, my, gr);
+        var gsel = (pick == gi);
+        draw_panel(gr[0], gr[1], gr[2], gr[3], gsel ? C.gold : (ghot ? C.white : C.panel_lo));
+        draw_txt(gr[0] + 34, (gr[1] + gr[3]) * 0.5, string(gi + 1) + ".", 3, C.ink, fa_center, fa_middle);
+        draw_txt_wrap(gr[0] + 64, gr[1] + 10, sc.predict[gi], 2, C.ink, gr[2] - gr[0] - 84, fa_left);
+    }
+    var hint2 = (pick < 0) ? "Tap the one you think will happen." : "Then press the button below.";
+    draw_txt(SCR_W * 0.5, 532, hint2, 2, C.white, fa_center, fa_top);
+    draw_txt(SCR_W * 0.5, 562, "Want to change your plan? Press Esc.", 1, C.panel_lo, fa_center, fa_top);
 }

@@ -176,3 +176,44 @@ function end_session() {
     save_log();
     room_goto(rm_summary);
 }
+
+/// @desc The situation line with the player's name in it.
+function situation_text(sc) {
+    var nm = (global.cur.name == "") ? "Your character" : global.cur.name;
+    return string_replace_all(sc.goal, "{name}", nm);
+}
+
+/// @desc Writes one attempt at a choice level into the log and saves at once.
+function log_choice(sc, chain, pick, ending, result) {
+    var rec = player_record(global.cur.name);
+    var words = "";
+    for (var i = 0; i < array_length(chain); i++) {
+        words += (i > 0 ? " > " : "") + chain_label(chain[i]);
+    }
+
+    array_push(rec.entries, {
+        when        : date_datetime_string(date_current_datetime()),
+        focus       : global.cur.flabel,
+        goal        : situation_text(sc),
+        tier        : sc.tier,
+        tier_name   : sc.tier_name,
+        chain       : chain,
+        chain_words : words,
+        guess       : sc.predict[pick],
+        right_guess : sc.predict[ending.pick],
+        outcome     : choice_plan_key(chain),
+        result_word : result.word,
+        said        : ending.text,
+        xp          : result.xp,
+        credit      : result.credit,
+        why         : result.why
+    });
+    rec.xp    += result.xp;
+    rec.plays += 1;
+    rec.avatar = global.cur.char;
+
+    global.cur.session_xp += result.xp;
+    global.cur.session_n  += 1;
+
+    save_log();
+}

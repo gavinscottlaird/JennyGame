@@ -10,6 +10,25 @@ if (state != "modal" && click && hit_rect(mx, my, rect_end())) {
 
 switch (state) {
 
+    // ---------------- choice levels: the situation card ----------------
+    case "intro": {
+        if ((click && hit_rect(mx, my, rect_go())) || keyboard_check_pressed(vk_enter)) {
+            state = "pick";
+        }
+    } break;
+
+    // ---------------- choice levels: pick one of four guesses ----------------
+    case "choose": {
+        if (click) {
+            for (var ci = 0; ci < array_length(sc.predict); ci++) {
+                if (hit_rect(mx, my, choice_rect(ci))) { pick = ci; break; }
+            }
+            if (pick >= 0 && hit_rect(mx, my, rect_go())) submit_choice();
+        }
+        // change the plan
+        if (keyboard_check_pressed(vk_escape)) { state = "pick"; pick = -1; }
+    } break;
+
     // ---------------- picking buttons ----------------
     case "pick": {
         var mvx = (keyboard_check(vk_right) || keyboard_check(ord("D")))
@@ -31,7 +50,9 @@ switch (state) {
                 var k = sc.spots[i];
                 var p = places[$ k];
                 if (hit_circle(mx, my, p.bx, p.by, BTN_R + 3)) {
-                    if (array_length(chain) < 8) array_push(chain, k);
+                    // choice levels: each thing can be picked once
+                    var can = !is_choice || chain_count(chain, k) == 0;
+                    if (can && array_length(chain) < 8) array_push(chain, k);
                     break;
                 }
             }
@@ -41,9 +62,14 @@ switch (state) {
             }
             // "Check what happens"
             if (array_length(chain) > 0 && hit_rect(mx, my, rect_go())) {
-                state = "modal";
-                guess = "";
-                keyboard_string = "";
+                if (is_choice) {
+                    state = "choose";       // pick from the four endings
+                    pick  = -1;
+                } else {
+                    state = "modal";
+                    guess = "";
+                    keyboard_string = "";
+                }
             }
         }
     } break;

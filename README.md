@@ -25,6 +25,24 @@ are needed — all art is pixel data in code, and the one font resource is in
 
 ---
 
+## Levels with a prediction menu (Jenny's design, in progress)
+
+After the player types a name, the game now goes straight to **Level 1**
+(`levels` in `scr_scenarios`). The focus screen and the 12 older scenarios are
+still in the project but not used for now.
+
+- An intro card shows the situation and the reminder "Remember, your character
+  has EXTREME outcomes!"
+- Hovering a round button shows what it does ("Eat food from the fridge.").
+  Each object can be picked once, in any order.
+- **I'm ready to guess** opens a menu of four endings. Pick one, then
+  **Show me what happens**.
+- Points: **2** if the guess matches what happened, **1** if it is wrong but
+  could have happened, **0** for the outlier (the ending that never fits).
+  See `score_choice` in `scr_score`.
+- Each level lists its plans and endings in `endings`; see the comment at the
+  top of the `levels` list for how to add a level.
+
 ## Screen flow
 
 | Room | What happens |

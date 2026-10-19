@@ -35,20 +35,36 @@ documentation only. The starting game source is from commit `2e81f9c`.
 
 ## Agreed task and plan
 
-**Planning in progress (2026-10-18):** Jenny is planning changes with Claude for
-high school learners. Her answers are logged in [PLANNING_NOTES.md](PLANNING_NOTES.md).
-Nothing is approved to build yet.
+**Current task (2026-10-19): Level 1 with a prediction menu.** Approved by
+Jenny ("Update this and then make the game playable"). Branch
+`jenny/level1-choices`. Her answers and the full design are in
+[PLANNING_NOTES.md](PLANNING_NOTES.md).
 
-No new gameplay feature has been selected or approved. The next task is to help
-the incoming collaborator accept access, clone the shared repo, and run the
-starting game. Then plan their first change with them in Claude Code, using a
-task branch and pull request. Before work, check for other open tasks/PRs.
+What the player sees:
+- After typing a name, the game goes straight to Level 1. (The focus screen
+  and the 12 old scenarios are kept in the code but not reachable for now.)
+- An intro card shows "[name] is EXTREMELY hungry and tired." and the reminder
+  "Remember, your character has EXTREME outcomes!" The reminder stays on screen.
+- Two objects, fridge and bed. Hovering shows "Eat food from the fridge." /
+  "Sleep in the bed." Each can be picked once, in any order.
+- "I'm ready to guess" opens 4 endings to choose from, then "Show me what
+  happens" plays it out.
+- Endings: fridge then bed, or fridge only (on the floor) -> 1 (choke);
+  bed then fridge -> 2 (raid the fridge); bed only -> 3 (worse stomachache).
+  Ending 4 (well rested and well fed) never happens; it is the outlier.
+- Points: 2 for a matching guess, 1 for a wrong guess that is not the outlier,
+  0 for the outlier. Logged to the score screen like before.
 
-For future work, replace this section with: the agreed player-visible result,
-the small implementation plan, what else may change, the success check, and
-whether it is planned, in progress, or complete, plus its branch/PR when known.
-Record decisions here after leaving Plan mode so another chat can continue
-without the old conversation.
+Boundary: the old typed-guess scoring code stays for the old scenarios. Save
+file format is unchanged; Level 1 entries add a few extra fields.
+
+Success check: Jenny plays all four plans in GameMaker and checks the text,
+hover descriptions, the 4 choices, the ending shown, and the points.
+
+Status: **built, not yet played.** Claude could not run GameMaker (no
+GameMaker in its workspace, and Jenny's computer was offline), so nothing has
+been tested in the game yet. Jenny will open and play it. If GameMaker shows an
+error, copy its text to Claude.
 
 ## Verification and known limits
 

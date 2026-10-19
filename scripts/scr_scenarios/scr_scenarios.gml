@@ -80,6 +80,55 @@ function scenario_all() {
 
     global.scenario_cache = {
 
+    // ================= LEVELS (Jenny's prediction-menu levels) =================
+    // A "choice" level: the student picks actions in any order (each object
+    // once), then picks one of four predicted endings from a menu.
+    //   goal      : the situation. {name} becomes the player's name.
+    //   reminder  : shown on the intro card and kept on screen.
+    //   describe  : what each object does, shown when the mouse is over it.
+    //   predict   : the four endings in the menu.
+    //   outlier   : index (0-3) of the ending that never fits. Picking it = 0 points.
+    //   endings   : one entry per plan. The key is the objects in order joined
+    //               with "_". pick = which predict[] entry really happens,
+    //               text = what the outcome screen says, gag = the visual joke.
+    // Points: 2 for the right ending, 1 for a wrong one that is not the
+    // outlier, 0 for the outlier (see score_choice in scr_score).
+    levels : [
+        {
+            key : "level_1", tier : 1, mode : "choice",
+            tier_name : "Level 1", tier_kid : "Level 1",
+            goal     : "{name} is EXTREMELY hungry and tired.",
+            reminder : "Remember, your character has EXTREME outcomes!",
+            spots    : ["fridge", "bed"],
+            describe : {
+                fridge : "Eat food from the fridge.",
+                bed    : "Sleep in the bed."
+            },
+            predict : [
+                "You fall asleep eating, then choke on your food.",
+                "You sleep with a stomachache, then wake up and raid the fridge.",
+                "You sleep with a stomachache, then wake up and the stomachache is even worse.",
+                "You get well rested and well fed."
+            ],
+            outlier : 3,
+            endings : {
+                fridge_bed : { pick : 0, gag : "wobble",
+                    text : "You take your food to bed. You fall asleep while you are still eating, and you choke on your food!" },
+                fridge     : { pick : 0, gag : "wobble",
+                    text : "You eat and eat. You never get to the bed. You fall asleep on the floor, still eating, and choke on your food!" },
+                bed_fridge : { pick : 1, gag : "pile",
+                    text : "You sleep with a stomachache. Then you wake up and raid the fridge!" },
+                bed        : { pick : 2, gag : "spin",
+                    text : "You sleep with a stomachache. You wake up and the stomachache is even worse!" }
+            },
+            obsess : "fridge",
+            // not used by choice levels, kept so older code never trips on them
+            correct : [], step_words : [], lesson : "", win : "",
+            fail : { incomplete : "" }
+        }
+    ],
+
+
     // ================= SCHOOL =================
     school : [
         {

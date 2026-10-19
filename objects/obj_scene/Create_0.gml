@@ -6,7 +6,7 @@ places = layout_positions(sc.spots);
 avoid  = scene_avoid_rects(sc.spots, places);
 
 chain  = [];
-state  = "pick";            // pick -> modal -> anim
+state  = "pick";            // pick -> modal -> anim   (choice levels: intro -> pick -> choose -> anim)
 guess  = "";                // what the student typed
 kind   = "";                // which ending happened
 outcome_score = undefined;  // result of score_attempt
@@ -27,6 +27,36 @@ walk_t  = 0;
 moving  = false;
 home_x  = px;
 home_y  = py;
+
+// ---- choice levels (Jenny's levels): guess from a menu of four ----
+is_choice = variable_struct_exists(sc, "mode") && sc.mode == "choice";
+pick      = -1;             // which of the four endings the student chose
+ending    = undefined;      // the ending that played
+if (is_choice) {
+    state    = "intro";     // show the situation card first
+    sit_text = situation_text(sc);
+}
+
+/// screen box of guess number i in the menu
+choice_rect = function(i) {
+    var w = 1100, h = 66, gap = 10, top = 214;
+    var x1 = (SCR_W - w) * 0.5;
+    var y1 = top + i * (h + gap);
+    return [x1, y1, x1 + w, y1 + h];
+};
+
+/// takes the chosen guess, works out what happens, and saves it
+submit_choice = function() {
+    ending        = choice_ending(sc, chain);
+    kind          = choice_plan_key(chain);
+    outcome_score = score_choice(sc, ending, pick);
+    log_choice(sc, chain, pick, ending, outcome_score);   // written to disk right here
+    anim      = build_choice_animation(sc, chain, ending, places);
+    anim_i    = 0;
+    anim_t    = 0;
+    result_on = false;
+    state     = "anim";
+};
 
 /// takes the typed guess, works out what happens, and saves it
 submit_guess = function() {
@@ -53,6 +83,8 @@ reset_scene = function() {
     act_key   = "";
     say       = "";
     result_on = false;
+    pick      = -1;
+    ending    = undefined;
     px        = home_x;
     py        = home_y;
 };

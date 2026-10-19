@@ -216,7 +216,8 @@ function draw_back_button(mx, my, label) {
 /// @param {Bool} hot       mouse is over it
 /// @param {Real} count     how many times it is already in the chain (0 = none)
 /// @param {Bool} enabled
-function draw_action_button(cx, cy, art, hot, count, enabled) {
+/// @param {String} tip      words shown on hover (defaults to the object's name)
+function draw_action_button(cx, cy, art, hot, count, enabled, tip = "") {
     var C = ui_colours();
     var r = BTN_R + (hot && enabled ? 3 : 0);
 
@@ -251,10 +252,12 @@ function draw_action_button(cx, cy, art, hot, count, enabled) {
     // tooltip below on hover
     if (hot) {
         var sc = 2;
-        var tw = txt_w(art.label, sc);
-        var tx = cx, ty = cy + r + 10;
+        var words = (tip == "") ? art.label : tip;
+        var tw = txt_w(words, sc);
+        var tx = clamp(cx, tw * 0.5 + 16, SCR_W - tw * 0.5 - 16);   // keep long tips on screen
+        var ty = cy + r + 10;
         draw_set_colour(C.ink);
         draw_rectangle(tx - tw * 0.5 - 8, ty, tx + tw * 0.5 + 8, ty + 24, false);
-        draw_txt(tx, ty + 12, art.label, sc, C.white, fa_center, fa_middle);
+        draw_txt(tx, ty + 12, words, sc, C.white, fa_center, fa_middle);
     }
 }

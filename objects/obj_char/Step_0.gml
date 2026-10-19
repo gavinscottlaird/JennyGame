@@ -32,6 +32,9 @@ if (naming) {
     if (ready && (keyboard_check_pressed(vk_enter)
                   || (click && hit_rect(mx, my, rect_start)))) {
         set_player(typed, sel);             // saved to disk straight away
-        room_goto(rm_focus);
+        // Straight to Jenny's levels. The focus screen (rm_focus) and the 12
+        // older scenarios are still in the project, just not used for now.
+        set_focus("levels", "Levels");
+        room_goto(rm_scene);
     }
 }

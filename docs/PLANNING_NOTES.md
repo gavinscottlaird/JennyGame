@@ -4,7 +4,7 @@ This file logs Jenny's answers to planning questions, in her words where
 possible. Claude adds to it each time she answers a question. Decisions
 here are **not built yet** unless marked as built.
 
-Status: **planning, nothing approved to build yet.**
+Status: **Level 1 approved and being built** (branch `jenny/level1-choices`).
 
 ---
 
@@ -83,6 +83,9 @@ So the outcome screen's wording can differ by plan even when the ending
 - 2 points: the prediction matches the outcome.
 - 1 point: wrong, but did not pick the outlier (4).
 - 0 points: picked the outlier.
+
+Jenny approved building this: "Update this and then make the game playable.
+I'll open it myself."
 
 ---
 

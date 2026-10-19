@@ -235,3 +235,24 @@ function score_attempt(sc, chain, prediction, kind) {
         named   : named
     };
 }
+
+/// @desc Scores a "choice" level, where the guess is picked from a menu.
+///       2 points: the guess is the ending that really happened.
+///       1 point : wrong, but it was not the outlier.
+///       0 points: the outlier (the ending that never fits).
+/// @param {Struct} sc      the level
+/// @param {Struct} ending  the ending that played (from sc.endings)
+/// @param {Real} pick      index of the guess the student chose
+/// @returns {Struct} { xp, credit, why, word }
+function score_choice(sc, ending, pick) {
+    if (pick == ending.pick) {
+        return { xp : 2, credit : "full", word : "Guess matched",
+                 why : "Your guess matched what happened. 2 points." };
+    }
+    if (pick == sc.outlier) {
+        return { xp : 0, credit : "none", word : "Did not fit",
+                 why : "That ending does not fit an EXTREME character. 0 points." };
+    }
+    return { xp : 1, credit : "partial", word : "Close",
+             why : "Not what happened, but it could have. 1 point." };
+}

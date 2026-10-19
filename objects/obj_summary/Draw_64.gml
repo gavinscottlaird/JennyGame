@@ -63,9 +63,12 @@ if (rec == undefined) {
 
             // the ending and the XP
             var xw = 300;
-            draw_txt(x2 - xw * 0.5, ey + 16, outcome_word(e.outcome), 2,
-                     (e.outcome == "win") ? C.good : C.bad, fa_center, fa_top);
-            draw_txt(x2 - xw * 0.5, ey + 42, "+" + string(e.xp) + " XP", 4, C.ink, fa_center, fa_top);
+            var is_choice = variable_struct_exists(e, "result_word");
+            var oword = is_choice ? e.result_word : outcome_word(e.outcome);
+            var ogood = is_choice ? (e.xp == 2) : (e.outcome == "win");
+            draw_txt(x2 - xw * 0.5, ey + 16, oword, 2,
+                     ogood ? C.good : C.bad, fa_center, fa_top);
+            draw_txt(x2 - xw * 0.5, ey + 42, "+" + string(e.xp) + (variable_struct_exists(e, "result_word") ? " pts" : " XP"), 4, C.ink, fa_center, fa_top);
             draw_txt(x2 - xw * 0.5, ey + 88, "credit: " + e.credit, 1, C.wall, fa_center, fa_top);
             draw_txt(x1 + 16, ey + 100, txt_fit(e.why, 1, 900), 1, C.wall);
         }
