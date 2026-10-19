@@ -87,6 +87,29 @@ So the outcome screen's wording can differ by plan even when the ending
 Jenny approved building this: "Update this and then make the game playable.
 I'll open it myself."
 
+**Jenny (2026-10-19):** "I still want to test a situation you create too. So I
+gave you a situation, and you create one, and when you are ready I'll test it
+out."
+
+**Claude's Level 2 (for Jenny to test):** "[name] has a big test tomorrow and
+is EXTREMELY tired." Desk ("Study for the test at the desk.") and bed ("Go to
+sleep in the bed.").
+1. You fall asleep on your book and wake up with words stuck on your face.
+2. You sleep so long that you miss the test.
+3. You study all night, then fall asleep during the test.
+4. You study a little, sleep well, and do great on the test. (outlier)
+
+| Plan | Ending that plays |
+|---|---|
+| Desk, then bed | 3. Studies all night, falls asleep in the test |
+| Desk only | 1. Falls asleep on the book |
+| Bed, then desk | 2. Misses the test (then studies for a test that is over) |
+| Bed only | 2. Misses the test |
+
+Meant to be a little harder than Level 1: the three bad endings are closer to
+each other. After Level 1's result, **Next level** goes to Level 2; the
+time-machine circle tries the same level again.
+
 ---
 
 ## Open questions (to ask next, one at a time)

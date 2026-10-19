@@ -61,6 +61,9 @@ file format is unchanged; Level 1 entries add a few extra fields.
 Success check: Jenny plays all four plans in GameMaker and checks the text,
 hover descriptions, the 4 choices, the ending shown, and the points.
 
+Also added: Claude's **Level 2** (big test, desk and bed) for Jenny to test,
+and a **Next level** button on the result screen (the time machine retries).
+
 Status: **built, not yet played.** Claude could not run GameMaker (no
 GameMaker in its workspace, and Jenny's computer was offline), so nothing has
 been tested in the game yet. Jenny will open and play it. If GameMaker shows an

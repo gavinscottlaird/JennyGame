@@ -130,7 +130,10 @@ switch (state) {
             if (hit_circle(mx, my, REW_X, REW_Y, REW_R + 4)) {
                 reset_scene();                       // time machine
             } else if (hit_rect(mx, my, rect_go())) {
-                if (kind == "win") {
+                if (is_choice && has_next_level()) {
+                    next_scenario();
+                    room_restart();                  // on to the next level
+                } else if (kind == "win") {
                     next_scenario();
                     room_restart();                  // load the next problem
                 } else {

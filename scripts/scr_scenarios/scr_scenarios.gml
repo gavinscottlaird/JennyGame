@@ -125,6 +125,39 @@ function scenario_all() {
             // not used by choice levels, kept so older code never trips on them
             correct : [], step_words : [], lesson : "", win : "",
             fail : { incomplete : "" }
+        },
+        {
+            // Claude's level for Jenny to test. A bit harder than Level 1:
+            // the three bad endings are closer to each other.
+            key : "level_2", tier : 2, mode : "choice",
+            tier_name : "Level 2", tier_kid : "Level 2",
+            goal     : "{name} has a big test tomorrow and is EXTREMELY tired.",
+            reminder : "Remember, your character has EXTREME outcomes!",
+            spots    : ["desk", "bed"],
+            describe : {
+                desk : "Study for the test at the desk.",
+                bed  : "Go to sleep in the bed."
+            },
+            predict : [
+                "You fall asleep on your book and wake up with words stuck on your face.",
+                "You sleep so long that you miss the test.",
+                "You study all night, then fall asleep during the test.",
+                "You study a little, sleep well, and do great on the test."
+            ],
+            outlier : 3,
+            endings : {
+                desk_bed : { pick : 2, gag : "wobble",
+                    text : "You study all night. You get to bed just as the sun comes up. You fall asleep during the test!" },
+                desk     : { pick : 0, gag : "spin",
+                    text : "You study and study, and fall asleep on your book. You wake up with words stuck on your face!" },
+                bed_desk : { pick : 1, gag : "pile",
+                    text : "You sleep so long that you miss the test. Then you wake up and study for a test that is over!" },
+                bed      : { pick : 1, gag : "wobble",
+                    text : "You sleep and sleep and sleep. You sleep so long that you miss the test!" }
+            },
+            obsess : "paper",
+            correct : [], step_words : [], lesson : "", win : "",
+            fail : { incomplete : "" }
         }
     ],
 

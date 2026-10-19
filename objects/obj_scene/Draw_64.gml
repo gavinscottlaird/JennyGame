@@ -192,6 +192,7 @@ var go_txt = is_choice ? "I'm ready to guess" : "Check what happens";
 if (state == "intro")  go_txt = "Start";
 if (state == "choose") go_txt = "Show me what happens";
 if (result_on) go_txt = (kind == "win") ? "Next one" : "Try again";
+if (result_on && is_choice && has_next_level()) go_txt = "Next level";
 var go_r   = rect_go();
 var go_on  = (result_on || array_length(chain) > 0 || state == "intro");
 if (state == "choose") go_on = (pick >= 0);
@@ -215,7 +216,10 @@ if (result_on) {
     draw_line_width(REW_X, REW_Y, REW_X + 8, REW_Y + 4, 3);
     draw_triangle(REW_X - REW_R + 2, REW_Y - 6, REW_X - REW_R + 12, REW_Y - 12,
                   REW_X - REW_R + 12, REW_Y, false);
-    if (rhot) draw_txt(REW_X, REW_Y - REW_R - 26, "Go back", 2, C.white, fa_center, fa_top);
+    if (rhot) {
+        var rlab = is_choice ? "Try again" : "Go back";
+        draw_txt(REW_X - txt_w(rlab, 2) * 0.5 + 10, REW_Y - REW_R - 26, rlab, 2, C.white, fa_center, fa_top);
+    }
 }
 
 // ---------------------------------------------------------------- ending panel
