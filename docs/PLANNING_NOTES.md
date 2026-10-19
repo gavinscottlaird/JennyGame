@@ -29,6 +29,10 @@ The game must make it easy to understand what to do.
 **Q: How should we work?**
 Plan together first. Talk through options and ideas before building anything.
 
+**How Jenny wants Claude to work:** Tell her when she isn't using Claude in
+a cost-effective way, and warn her when something (like writing a list) would
+be better for her to do herself.
+
 **Q: What does Jenny want to customize?**
 The situations. She wants to make them clearer, harder, or add whatever
 scaffolding a student needs.
