@@ -66,6 +66,19 @@ Not yet confirmed which.)
 - Then the student presses a button to say they are ready, and the outcome
   plays so they can see if it matches their prediction.
 
+**Which ending plays (agreed 2026-10-19):** With an EXTREME character, ending 4
+never plays; it is the too-good-to-be-true choice.
+
+| Plan | Ending that plays |
+|---|---|
+| Fridge, then bed | 1. Falls asleep eating and chokes |
+| Fridge only | 1. Falls asleep eating and chokes; the outcome screen says they fell asleep on the **floor** instead of the bed |
+| Bed, then fridge | 2. Sleeps with a stomachache, then raids the fridge |
+| Bed only | 3. Sleeps with a stomachache that gets worse |
+
+So the outcome screen's wording can differ by plan even when the ending
+(the prediction choice that is right) is the same.
+
 **Jenny's scoring:**
 - 2 points: the prediction matches the outcome.
 - 1 point: wrong, but did not pick the outlier (4).
@@ -75,8 +88,7 @@ Not yet confirmed which.)
 
 ## Open questions (to ask next, one at a time)
 
-- Which ending plays for each plan (fridge then bed, bed then fridge, fridge
-  only, bed only)?
+- Does any text show in the game on Jenny's computer (e.g. "Play" on the menu)?
 - What situations fit high schoolers? (The current 12 are written for young
   children, at a 2nd-grade reading level.)
 - How should the 4 prediction choices get easier or harder?
