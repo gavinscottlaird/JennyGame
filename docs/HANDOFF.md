@@ -69,6 +69,16 @@ GameMaker in its workspace, and Jenny's computer was offline), so nothing has
 been tested in the game yet. Jenny will open and play it. If GameMaker shows an
 error, copy its text to Claude.
 
+## Jenny's copy of the game
+
+Jenny plays from `C:\Users\JenniferNagrant\GameMakerProjects\JennyGame-main`.
+It is a downloaded copy, not a Git clone, so it does not update itself.
+After each game change, Claude copies the changed files into that folder
+(when her computer is connected) and updates `GAME_VERSION` in `scr_config`.
+The title screen shows that version at the top left, so Jenny can check she is
+running the newest copy. Other folders on her computer ("Problem Solver",
+"Problem Solver 2", downloaded ZIP copies) are older and should not be used.
+
 ## Verification and known limits
 
 The handoff preparation reviewed the README, project metadata, and relevant

@@ -29,5 +29,8 @@ var shp = hit_rect(mx, my, rect_score);
 draw_text_button(rect_score[0], rect_score[1], rect_score[2], rect_score[3],
                  "See my score", 2, shp, C.panel);
 
+// which copy of the game this is (see GAME_VERSION in scr_config)
+draw_txt(24, 20, GAME_VERSION, 2, C.cool);
+
 draw_txt(SCR_W * 0.5, SCR_H - 40, "Use the arrow keys or A W S D to walk.",
          1, C.panel_lo, fa_center, fa_top);

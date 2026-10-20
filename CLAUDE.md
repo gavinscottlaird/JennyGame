@@ -121,6 +121,8 @@ is enabled, without inventing a completed feature.
 - Keep `.yyp` and `.yy` resource references consistent when adding resources.
   GameMaker files can contain trailing commas; ordinary JSON parsing alone is
   not a valid GameMaker build check. Keep generated `output/` out of Git.
+- Update `GAME_VERSION` in `scripts/scr_config` with every game change; the
+  title screen shows it so testers can tell which copy they are running.
 - Use made-up names for play checks. Player logs live outside the project in
   `%LOCALAPPDATA%\JennyGame\pps_log.json` on Windows; do not publish them.
 - Scale checks to the change. For gameplay changes, the handoff has a baseline

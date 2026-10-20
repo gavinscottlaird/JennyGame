@@ -2,6 +2,11 @@
 /// The UI spec in the design doc is encoded here, so Luna can retune the look
 /// without hunting through the game code.
 
+// ---- version label, shown on the title screen ----
+// Change this with every game change, so whoever is testing can see at a
+// glance that they opened the newest copy.
+#macro GAME_VERSION "Version: Oct 19 - Levels 1 and 2"
+
 // ---- screen ----
 #macro SCR_W 1366
 #macro SCR_H  768
