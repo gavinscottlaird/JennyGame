@@ -69,6 +69,38 @@ GameMaker in its workspace, and Jenny's computer was offline), so nothing has
 been tested in the game yet. Jenny will open and play it. If GameMaker shows an
 error, copy its text to Claude.
 
+### Next: clearer clicks, sharp text, full screen (paused, not started)
+
+Jenny asked (2026-10-19 evening), and left the design to Claude ("anything you
+think would solve this issue"):
+1. After clicking an option, make it extra clear what just happened and what
+   to do next: animations, help text, visual helpers.
+2. "Everything is blurry." Make nothing blurry.
+3. A full-screen option that does not make it blurry.
+
+**Cause of the blur (checked in the files):** `fnt_pix` is Arial at size 8
+with anti-aliasing, and `draw_txt` blows it up 2 to 6 times with
+`draw_text_transformed`. The soft grey edge pixels get magnified. The pixel
+art itself is drawn with rectangles, so it is not the problem.
+
+**Plan Claude was about to build** (on this branch, `jenny/level1-choices`):
+- Text: ship a readable open-licence font (Work Sans, OFL) as an Included
+  File and make it with `font_add` at the exact pixel size needed for the
+  current window, so text is drawn 1:1 on screen. Keep layout in 1366x768
+  design units; set the GUI to the real window size and scale/center the
+  layout with a world matrix. Mouse helpers convert back to design units.
+- Full screen: a small button on every screen plus F11, using
+  `window_set_fullscreen`; fonts are remade for the new size. Fill the whole
+  window so no coloured bars show on other screen shapes.
+- Clicks: a 3-step tracker (Make a plan, Guess, Watch); a pop and fly-to-plan
+  animation with a numbered step badge when an object is picked; a short
+  message saying what was just done and what to do next; the next button
+  pulses with a bouncing arrow; the chosen guess gets a check mark; a
+  clickable "Change my plan" button instead of Esc only; "step 1 of 2" while
+  the outcome plays; always-visible label on the try-again circle.
+
+Nothing has been changed in the game yet. Resume from this plan.
+
 ## Jenny's copy of the game
 
 Jenny plays from `C:\Users\JenniferNagrant\GameMakerProjects\JennyGame-main`.
