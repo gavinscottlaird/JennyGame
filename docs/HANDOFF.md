@@ -35,6 +35,10 @@ documentation only. The starting game source is from commit `2e81f9c`.
 
 ## Agreed task and plan
 
+**Planning in progress (2026-10-18):** Jenny is planning changes with Claude for
+high school learners. Her answers are logged in [PLANNING_NOTES.md](PLANNING_NOTES.md).
+Nothing is approved to build yet.
+
 No new gameplay feature has been selected or approved. The next task is to help
 the incoming collaborator accept access, clone the shared repo, and run the
 starting game. Then plan their first change with them in Claude Code, using a
