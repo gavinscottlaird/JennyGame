@@ -112,6 +112,19 @@ time-machine circle tries the same level again.
 
 ---
 
+## 2026-10-19: Clicks must be clear, nothing blurry, full screen
+
+**Jenny:** "After clicking an option, I want it to be extra clear what just
+happened, and what should happen next. Include animations, help text, visual
+helpers, etc. anything you think would solve this issue. Also, everything is
+blurry. Change how visuals are done so nothing is blurry."
+
+**Jenny:** "I also want the ability to go into fullscreen without it
+affecting blur."
+
+Claude chose the design (Jenny left it open). **Built 2026-10-23** on branch
+`jenny/level1-choices`; see HANDOFF.md for what changed and the play check.
+
 ## Open questions (to ask next, one at a time)
 
 - Does any text show in the game on Jenny's computer (e.g. "Play" on the menu)?

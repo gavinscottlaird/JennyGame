@@ -1,8 +1,8 @@
 t++;
 
-var mx    = device_mouse_x_to_gui(0);
-var my    = device_mouse_y_to_gui(0);
-var click = mouse_check_button_pressed(mb_left);
+var mx    = ui_mx();
+var my    = ui_my();
+var click = ui_click();
 var fl    = focus_list();
 
 if (click && hit_rect(mx, my, rect_end())) {

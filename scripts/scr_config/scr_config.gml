@@ -5,7 +5,7 @@
 // ---- version label, shown on the title screen ----
 // Change this with every game change, so whoever is testing can see at a
 // glance that they opened the newest copy.
-#macro GAME_VERSION "Version: Oct 19 - Levels 1 and 2"
+#macro GAME_VERSION "Version: Oct 23 - sharp text, full screen, clearer steps"
 
 // ---- screen ----
 #macro SCR_W 1366
@@ -25,7 +25,7 @@
 #macro BTN_MAX       6                   // most objects a room may hold
 
 // ---- fixed screen furniture ----
-#macro CHAIN_Y       54                  // action chain sits along the top
+#macro CHAIN_Y       68                  // the plan sits along the top (second line)
 #macro ROOM_TOP      96
 #macro ROOM_BOT     656
 #macro FLOOR_Y      600                  // where the characters' feet walk
@@ -44,8 +44,6 @@
 #macro REW_Y        718
 #macro REW_R         28
 
-#macro UNDO_X (SCR_W - 56)               // "take the last one back" circle
-#macro UNDO_Y CHAIN_Y
 
 /// @desc The game's colours. Built once, kept in a global.
 function ui_colours() {
@@ -76,3 +74,6 @@ function rect_go()  { return [GO_X, GO_Y, GO_X + GO_W, GO_Y + GO_H]; }
 
 /// @desc Screen rectangle of the bottom-left end-session button.
 function rect_end() { return [END_X, END_Y, END_X + END_S, END_Y + END_S]; }
+
+/// @desc Screen rectangle of the full-screen button (top-right, every screen).
+function rect_fs()  { return [SCR_W - 50, 10, SCR_W - 14, 42]; }

@@ -10,7 +10,7 @@ for (var i = 0; i < array_length(names); i++) {
 scroll   = 0;
 dragging = false;
 last_my  = 0;
-ENTRY_H  = 124;
+ENTRY_H  = 146;
 list_top = 300;
 list_bot = 662;
 

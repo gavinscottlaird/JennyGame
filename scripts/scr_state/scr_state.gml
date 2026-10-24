@@ -19,11 +19,9 @@ function game_init() {
     if (variable_global_exists("pps_ready")) return;
     global.pps_ready = true;
 
-    // everything is drawn in GUI space at one fixed size, so the layout in
-    // scr_config lines up whatever the window is doing
-    display_set_gui_size(SCR_W, SCR_H);
-    gpu_set_tex_filter(false);          // keep the pixels sharp, not blurry
-    draw_set_font(fnt_pix);
+    // everything is laid out in one fixed design size (scr_config) and
+    // scr_screen maps it onto the real window, so it stays sharp at any size
+    ui_setup();
 
     global.data = load_log();
     global.cur  = {

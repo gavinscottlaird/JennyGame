@@ -116,7 +116,7 @@ function build_choice_animation(sc, chain, ending, places) {
         var line = object_verb(key);
         if (variable_struct_exists(sc.describe, key)) line = sc.describe[$ key];
         array_push(steps, { type : "walk", key : key, tx : p.x, frames : 50 });
-        array_push(steps, { type : "act",  key : key, text : line, frames : 40 });
+        array_push(steps, { type : "act",  key : key, text : line, frames : 80 });   // long enough to read
     }
     array_push(steps, {
         type   : "result",

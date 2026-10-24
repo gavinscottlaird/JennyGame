@@ -1,6 +1,6 @@
 # Where we left off
 
-**Updated:** 2026-10-18. This is the shared note for the next person and the next
+**Updated:** 2026-10-23. This is the shared note for the next person and the next
 Claude chat. Keep it short and replace stale status as the project changes.
 
 ## Repository and ownership
@@ -69,37 +69,55 @@ GameMaker in its workspace, and Jenny's computer was offline), so nothing has
 been tested in the game yet. Jenny will open and play it. If GameMaker shows an
 error, copy its text to Claude.
 
-### Next: clearer clicks, sharp text, full screen (paused, not started)
+### Clearer clicks, sharp text, full screen (2026-10-23, built, not yet played)
 
-Jenny asked (2026-10-19 evening), and left the design to Claude ("anything you
-think would solve this issue"):
+Jenny asked (2026-10-19) and left the design to Claude ("anything you think
+would solve this issue"):
 1. After clicking an option, make it extra clear what just happened and what
    to do next: animations, help text, visual helpers.
 2. "Everything is blurry." Make nothing blurry.
-3. A full-screen option that does not make it blurry.
+3. Full screen that does not make it blurry.
 
-**Cause of the blur (checked in the files):** `fnt_pix` is Arial at size 8
-with anti-aliasing, and `draw_txt` blows it up 2 to 6 times with
-`draw_text_transformed`. The soft grey edge pixels get magnified. The pixel
-art itself is drawn with rectangles, so it is not the problem.
+**Cause of the blur (found in the files):** `fnt_pix` is Arial size 8, and
+`draw_txt` blew it up 2 to 6 times, so the soft edge pixels were magnified.
 
-**Plan Claude was about to build** (on this branch, `jenny/level1-choices`):
-- Text: ship a readable open-licence font (Work Sans, OFL) as an Included
-  File and make it with `font_add` at the exact pixel size needed for the
-  current window, so text is drawn 1:1 on screen. Keep layout in 1366x768
-  design units; set the GUI to the real window size and scale/center the
-  layout with a world matrix. Mouse helpers convert back to design units.
-- Full screen: a small button on every screen plus F11, using
-  `window_set_fullscreen`; fonts are remade for the new size. Fill the whole
-  window so no coloured bars show on other screen shapes.
-- Clicks: a 3-step tracker (Make a plan, Guess, Watch); a pop and fly-to-plan
-  animation with a numbered step badge when an object is picked; a short
-  message saying what was just done and what to do next; the next button
-  pulses with a bouncing arrow; the chosen guess gets a check mark; a
-  clickable "Change my plan" button instead of Esc only; "step 1 of 2" while
-  the outcome plays; always-visible label on the try-again circle.
+**What was built** (branch `jenny/level1-choices`, same PR #2):
+- New `scripts/scr_screen`: the GUI is set to the real window size; layout
+  stays in 1366x768 design units, mapped with a scale/offset matrix. Each
+  text size is made with `font_add` from `datafiles/AtkinsonHyperlegible-*.ttf`
+  at its exact on-screen pixel size and drawn 1:1. Fonts are remade when the
+  window size settles. The whole window is painted (no bars). If the font
+  files fail to load, `fnt_pix` is used and the title screen says "backup font".
+- Full screen: F11, or the corner button on every screen. At start the window
+  grows to fit the screen (1.2x on a 1080p screen). The title screen shows the
+  window size, to help diagnose any remaining blur.
+- Play screen (choice levels): help box under the reminder (what just
+  happened + what to do next, pops/wiggles); Plan/Guess/Watch steps; captions
+  under each object; burst + flying chip + hop + numbered badge on picking;
+  "Take back" next to the plan; glow and bouncing arrows on the next thing to
+  press; ticked "Your guess" in the menu; "Change my plan" button; "Watch step
+  1 of 2" while it plays (longer speech bubbles: 80 frames); clearer ending
+  panel (points, your guess vs what happened, why, what next), points float
+  to the score box, confetti on a match, "Try again" always labelled. Hand
+  pointer over clickable things. Small pops on the character screen.
+- Changed flow: after the **last** level the big button says "See my score"
+  (it used to restart the level; the time machine still does that). Enter
+  works as a shortcut for the big button on choice levels.
+- Scoring, levels, endings, and the save format are unchanged.
 
-Nothing has been changed in the game yet. Resume from this plan.
+**Checks done:** brackets balanced in every GML file; every function called is
+defined in the project or is a GameMaker built-in; the `.yyp` Included Files
+entries copy the format of a real GameMaker 2024 project; text widths measured
+with the real font against each layout; a rough mock-up of the plan, guess and
+ending screens drawn from the same numbers showed no overlaps.
+**Not run in GameMaker** (none in Claude's workspace). Unknowns to watch:
+font_add sizing (code measures and corrects it), and whether Windows display
+scaling still stretches the window (the title-screen window size will tell).
+
+**Jenny's play check:** title screen shows "Version: Oct 23"; text is crisp;
+F11 and the corner button go full screen and back, still crisp; on Level 1,
+each click updates the help box and plays its animation; "Take back",
+"Change my plan", and both ending buttons do what their words say.
 
 ## Jenny's copy of the game
 

@@ -3,6 +3,7 @@ game_init();
 
 t      = 0;
 sel    = "";                    // which avatar is picked
+sel_t  = 999;                   // frames since it was picked (the "Picked!" pop)
 naming = false;
 typed  = "";
 

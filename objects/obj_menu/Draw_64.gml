@@ -1,6 +1,7 @@
+ui_begin();
 var C  = ui_colours();
-var mx = device_mouse_x_to_gui(0);
-var my = device_mouse_y_to_gui(0);
+var mx = ui_mx();
+var my = ui_my();
 
 draw_backdrop(false);
 
@@ -23,14 +24,25 @@ for (var i = 0; i < array_length(order); i++) {
 }
 
 var php = hit_rect(mx, my, rect_play);
+draw_glow_rect(rect_play, t, C.gold);              // "start here"
 draw_text_button(rect_play[0], rect_play[1], rect_play[2], rect_play[3], "Play", 4, php);
 
 var shp = hit_rect(mx, my, rect_score);
 draw_text_button(rect_score[0], rect_score[1], rect_score[2], rect_score[3],
                  "See my score", 2, shp, C.panel);
 
-// which copy of the game this is (see GAME_VERSION in scr_config)
-draw_txt(24, 20, GAME_VERSION, 2, C.cool);
+// which copy of the game this is (see GAME_VERSION in scr_config), and the
+// window size, so a tester can tell Claude exactly what they are seeing
+draw_txt(24, 14, GAME_VERSION, 2, C.cool);
+var U = global.ui;
+draw_txt(24, 44, "Window: " + string(U.ww) + " x " + string(U.wh)
+         + (window_get_fullscreen() ? " (full screen)" : "")
+         + (U.fonts_ok ? "" : "   -   backup font (font files not found)"),
+         1, U.fonts_ok ? C.panel_lo : C.bad);
 
-draw_txt(SCR_W * 0.5, SCR_H - 40, "Use the arrow keys or A W S D to walk.",
+draw_txt(SCR_W * 0.5, SCR_H - 64, "Full screen: press F11, or the button in the top corner.",
          1, C.panel_lo, fa_center, fa_top);
+draw_txt(SCR_W * 0.5, SCR_H - 38, "Use the arrow keys or A W S D to walk.",
+         1, C.panel_lo, fa_center, fa_top);
+
+ui_end();

@@ -1,6 +1,7 @@
+ui_begin();
 var C     = ui_colours();
-var mx    = device_mouse_x_to_gui(0);
-var my    = device_mouse_y_to_gui(0);
+var mx    = ui_mx();
+var my    = ui_my();
 var chars = art_chars();
 var order = art_char_order();
 
@@ -14,6 +15,7 @@ for (var i = 0; i < array_length(order); i++) {
     var r   = card_rect(i);
     var hot = hit_rect(mx, my, r);
     var on  = (sel == key);
+    if (hot) ui_hand();
 
     draw_set_colour(on ? C.gold : C.ink);
     draw_rectangle(r[0] - 5, r[1] - 5, r[2] + 5, r[3] + 5, false);
@@ -27,7 +29,16 @@ for (var i = 0; i < array_length(order); i++) {
     draw_pixel_map(a.map, a.pal, ax - CHAR_W * 0.5, ay + hop, CHAR_SCALE);
 
     draw_txt(ax, r[3] - 54, a.label, 3, C.ink, fa_center, fa_top);
-    if (on) draw_txt(ax, r[3] - 22, "Picked!", 2, C.good, fa_center, fa_top);
+    if (on) {
+        // a green badge pops onto the card you picked
+        var pp = ease_out_back(min(1, sel_t / 14));
+        draw_set_colour(C.ink);
+        draw_circle(r[2] - 6, r[1] + 6, 22 * pp + 3, false);
+        draw_set_colour(C.good);
+        draw_circle(r[2] - 6, r[1] + 6, 22 * pp, false);
+        if (pp > 0.3) draw_tick(r[2] - 6, r[1] + 6, 26 * pp, C.white);
+        draw_txt(ax, r[3] - 22, "Picked!", 2, C.good, fa_center, fa_top, 1, true);
+    }
 }
 
 // ---- the name box ----
@@ -51,6 +62,7 @@ if (naming) {
 
     var ready = (str_trim(typed) != "");
     var ghot  = hit_rect(mx, my, rect_start) && ready;
+    if (ready) draw_glow_rect(rect_start, t, C.gold);        // "press this next"
     draw_text_button(rect_start[0], rect_start[1], rect_start[2], rect_start[3],
                      ready ? "Let's go" : "Type your name", ready ? 3 : 2, ghot,
                      ready ? C.gold : C.panel_lo);
@@ -59,3 +71,4 @@ if (naming) {
 }
 
 draw_back_button(mx, my, "Back");
+ui_end();
