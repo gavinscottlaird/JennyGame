@@ -88,3 +88,42 @@ function build_animation(sc, chain, kind, places) {
     });
     return steps;
 }
+
+/// @desc The plan as a key for sc.endings: object keys joined with "_".
+function choice_plan_key(chain) {
+    var k = "";
+    for (var i = 0; i < array_length(chain); i++) k += (i > 0 ? "_" : "") + chain[i];
+    return k;
+}
+
+/// @desc The ending a choice level plays for this plan.
+function choice_ending(sc, chain) {
+    var k = choice_plan_key(chain);
+    if (variable_struct_exists(sc.endings, k)) return sc.endings[$ k];
+    // should not happen: every plan has an ending. Fall back to the first one.
+    var names = variable_struct_get_names(sc.endings);
+    return sc.endings[$ names[0]];
+}
+
+/// @desc Animation for a choice level: walk to each object, say what you do
+///       there, then hold on the ending.
+function build_choice_animation(sc, chain, ending, places) {
+    var steps = [];
+    for (var i = 0; i < array_length(chain); i++) {
+        var key = chain[i];
+        var p   = { x : SCR_W * 0.5, y : FLOOR_Y };
+        if (variable_struct_exists(places, key)) p = places[$ key];
+        var line = object_verb(key);
+        if (variable_struct_exists(sc.describe, key)) line = sc.describe[$ key];
+        array_push(steps, { type : "walk", key : key, tx : p.x, frames : 50 });
+        array_push(steps, { type : "act",  key : key, text : line, frames : 80 });   // long enough to read
+    }
+    array_push(steps, {
+        type   : "result",
+        kind   : choice_plan_key(chain),
+        gag    : ending.gag,
+        text   : ending.text,
+        frames : 9999
+    });
+    return steps;
+}

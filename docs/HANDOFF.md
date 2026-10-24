@@ -1,6 +1,6 @@
 # Where we left off
 
-**Updated:** 2026-10-18. This is the shared note for the next person and the next
+**Updated:** 2026-10-23. This is the shared note for the next person and the next
 Claude chat. Keep it short and replace stale status as the project changes.
 
 ## Repository and ownership
@@ -35,16 +35,99 @@ documentation only. The starting game source is from commit `2e81f9c`.
 
 ## Agreed task and plan
 
-No new gameplay feature has been selected or approved. The next task is to help
-the incoming collaborator accept access, clone the shared repo, and run the
-starting game. Then plan their first change with them in Claude Code, using a
-task branch and pull request. Before work, check for other open tasks/PRs.
+**Current task (2026-10-19): Level 1 with a prediction menu.** Approved by
+Jenny ("Update this and then make the game playable"). Branch
+`jenny/level1-choices`. Her answers and the full design are in
+[PLANNING_NOTES.md](PLANNING_NOTES.md).
 
-For future work, replace this section with: the agreed player-visible result,
-the small implementation plan, what else may change, the success check, and
-whether it is planned, in progress, or complete, plus its branch/PR when known.
-Record decisions here after leaving Plan mode so another chat can continue
-without the old conversation.
+What the player sees:
+- After typing a name, the game goes straight to Level 1. (The focus screen
+  and the 12 old scenarios are kept in the code but not reachable for now.)
+- An intro card shows "[name] is EXTREMELY hungry and tired." and the reminder
+  "Remember, your character has EXTREME outcomes!" The reminder stays on screen.
+- Two objects, fridge and bed. Hovering shows "Eat food from the fridge." /
+  "Sleep in the bed." Each can be picked once, in any order.
+- "I'm ready to guess" opens 4 endings to choose from, then "Show me what
+  happens" plays it out.
+- Endings: fridge then bed, or fridge only (on the floor) -> 1 (choke);
+  bed then fridge -> 2 (raid the fridge); bed only -> 3 (worse stomachache).
+  Ending 4 (well rested and well fed) never happens; it is the outlier.
+- Points: 2 for a matching guess, 1 for a wrong guess that is not the outlier,
+  0 for the outlier. Logged to the score screen like before.
+
+Boundary: the old typed-guess scoring code stays for the old scenarios. Save
+file format is unchanged; Level 1 entries add a few extra fields.
+
+Success check: Jenny plays all four plans in GameMaker and checks the text,
+hover descriptions, the 4 choices, the ending shown, and the points.
+
+Also added: Claude's **Level 2** (big test, desk and bed) for Jenny to test,
+and a **Next level** button on the result screen (the time machine retries).
+
+Status: **built, not yet played.** Claude could not run GameMaker (no
+GameMaker in its workspace, and Jenny's computer was offline), so nothing has
+been tested in the game yet. Jenny will open and play it. If GameMaker shows an
+error, copy its text to Claude.
+
+### Clearer clicks, sharp text, full screen (2026-10-23, built, not yet played)
+
+Jenny asked (2026-10-19) and left the design to Claude ("anything you think
+would solve this issue"):
+1. After clicking an option, make it extra clear what just happened and what
+   to do next: animations, help text, visual helpers.
+2. "Everything is blurry." Make nothing blurry.
+3. Full screen that does not make it blurry.
+
+**Cause of the blur (found in the files):** `fnt_pix` is Arial size 8, and
+`draw_txt` blew it up 2 to 6 times, so the soft edge pixels were magnified.
+
+**What was built** (branch `jenny/level1-choices`, same PR #2):
+- New `scripts/scr_screen`: the GUI is set to the real window size; layout
+  stays in 1366x768 design units, mapped with a scale/offset matrix. Each
+  text size is made with `font_add` from `datafiles/AtkinsonHyperlegible-*.ttf`
+  at its exact on-screen pixel size and drawn 1:1. Fonts are remade when the
+  window size settles. The whole window is painted (no bars). If the font
+  files fail to load, `fnt_pix` is used and the title screen says "backup font".
+- Full screen: F11, or the corner button on every screen. At start the window
+  grows to fit the screen (1.2x on a 1080p screen). The title screen shows the
+  window size, to help diagnose any remaining blur.
+- Play screen (choice levels): help box under the reminder (what just
+  happened + what to do next, pops/wiggles); Plan/Guess/Watch steps; captions
+  under each object; burst + flying chip + hop + numbered badge on picking;
+  "Take back" next to the plan; glow and bouncing arrows on the next thing to
+  press; ticked "Your guess" in the menu; "Change my plan" button; "Watch step
+  1 of 2" while it plays (longer speech bubbles: 80 frames); clearer ending
+  panel (points, your guess vs what happened, why, what next), points float
+  to the score box, confetti on a match, "Try again" always labelled. Hand
+  pointer over clickable things. Small pops on the character screen.
+- Changed flow: after the **last** level the big button says "See my score"
+  (it used to restart the level; the time machine still does that). Enter
+  works as a shortcut for the big button on choice levels.
+- Scoring, levels, endings, and the save format are unchanged.
+
+**Checks done:** brackets balanced in every GML file; every function called is
+defined in the project or is a GameMaker built-in; the `.yyp` Included Files
+entries copy the format of a real GameMaker 2024 project; text widths measured
+with the real font against each layout; a rough mock-up of the plan, guess and
+ending screens drawn from the same numbers showed no overlaps.
+**Not run in GameMaker** (none in Claude's workspace). Unknowns to watch:
+font_add sizing (code measures and corrects it), and whether Windows display
+scaling still stretches the window (the title-screen window size will tell).
+
+**Jenny's play check:** title screen shows "Version: Oct 23"; text is crisp;
+F11 and the corner button go full screen and back, still crisp; on Level 1,
+each click updates the help box and plays its animation; "Take back",
+"Change my plan", and both ending buttons do what their words say.
+
+## Jenny's copy of the game
+
+Jenny plays from `C:\Users\JenniferNagrant\GameMakerProjects\JennyGame-main`.
+It is a downloaded copy, not a Git clone, so it does not update itself.
+After each game change, Claude copies the changed files into that folder
+(when her computer is connected) and updates `GAME_VERSION` in `scr_config`.
+The title screen shows that version at the top left, so Jenny can check she is
+running the newest copy. Other folders on her computer ("Problem Solver",
+"Problem Solver 2", downloaded ZIP copies) are older and should not be used.
 
 ## Verification and known limits
 

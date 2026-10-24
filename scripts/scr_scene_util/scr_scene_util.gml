@@ -19,6 +19,12 @@ function next_scenario() {
     save_log();
 }
 
+/// @desc True when there is another level after this one (no looping round).
+function has_next_level() {
+    var list = scenario_list(global.cur.focus);
+    return global.cur.sindex < array_length(list) - 1;
+}
+
 /// @desc Spreads object keys evenly across a row.
 function spread_row(keys, y_top, into) {
     var c = array_length(keys);

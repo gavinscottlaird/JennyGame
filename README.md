@@ -19,11 +19,59 @@ XP is earned for steps that were both **done in the right order** and **named in
 the written prediction**. Every decision is logged per player name for the
 therapist.
 
-Open `JennyGame.yyp` in GameMaker and press Run. No sprites or external assets
-are needed — all art is pixel data in code, and the one font resource is in
-`fonts/fnt_pix`.
+Open `JennyGame.yyp` in GameMaker and press Run. No sprites are needed — all art
+is pixel data in code. Text uses the Atkinson Hyperlegible font files in
+`datafiles/` (free under the SIL Open Font License, included there); the old
+`fonts/fnt_pix` is kept as a backup.
+
+**Sharp at any size, and full screen.** Everything is laid out at 1366×768 and
+`scripts/scr_screen` maps that onto the real window, making each text size at
+the exact pixel size it shows on screen, so nothing is stretched or blurry.
+At start the window grows to fit the screen. **F11** or the small button in the
+top-right corner of every screen switches full screen on and off. The title
+screen shows the window size (and says "backup font" if the font files are
+missing), which helps when someone reports a problem.
 
 ---
+
+## Levels with a prediction menu (Jenny's design, in progress)
+
+After the player types a name, the game now goes straight to **Level 1**
+(`levels` in `scr_scenarios`). The focus screen and the 12 older scenarios are
+still in the project but not used for now.
+
+- An intro card shows the situation and the reminder "Remember, your character
+  has EXTREME outcomes!"
+- What each round button does is written under its object ("Eat food from the
+  fridge."). Each object can be picked once, in any order.
+- **I'm ready to guess** opens a menu of four endings. Pick one, then
+  **Show me what happens**. **Change my plan** (or Esc) goes back.
+- After the last level, the big button says **See my score**.
+
+**Every click says what just happened and what to do next** (Jenny asked for
+this, Oct 2026):
+
+- A **help box** under the reminder always has two lines: what just happened
+  (green tick, or red "!" for "not yet") and what to do next. It flashes and
+  slides in when the words change, and wiggles if you press something too early.
+- **Three steps** at the top right — Plan, Guess, Watch — show where you are.
+- Picking a round button: a burst, a chip flies up into **Your plan** with its
+  step number, the object hops, and its button gets a green number badge and
+  "Step 1 of your plan". **Take back** sits right after the plan.
+- The next thing to press glows, and a bouncing arrow points at it.
+- The picked guess gets a tick, a "Your guess" tag and a pulse.
+- While the ending plays, the help box says "Watch step 1 of 2…" and that step
+  is outlined in the plan.
+- The ending panel shows a tick or cross, the points, your guess next to what
+  happened, why you got those points, and what to press next. Points float up
+  to the score box; a matched guess gets confetti. "Try again" is always
+  written next to the time machine.
+- A hand pointer shows over anything you can click; buttons sink when pressed.
+- Points: **2** if the guess matches what happened, **1** if it is wrong but
+  could have happened, **0** for the outlier (the ending that never fits).
+  See `score_choice` in `scr_score`.
+- Each level lists its plans and endings in `endings`; see the comment at the
+  top of the `levels` list for how to add a level.
 
 ## Screen flow
 
@@ -156,6 +204,10 @@ sentences, and **"Try again"** rather than "Retry".
 - **Look and layout** — `scripts/scr_config`. Screen size, art scale, the 60px
   button radius, the gold `#FFD700`, where the fixed buttons sit. Nothing else
   hard-codes these numbers.
+- **Text size, sharpness, full screen** — `scripts/scr_screen`. `ui_px` lists
+  the pixel size of each text size. Every Draw GUI event starts with
+  `ui_begin()` and ends with `ui_end()`; read the mouse with `ui_mx()`/`ui_my()`
+  and clicks with `ui_click()` so they line up at any window size.
 - **Art** — `scr_art_chars` (avatars, 16×20) and `scr_art_objects` (objects,
   16×16). Both are ASCII maps with a letter per colour and `.` for see-through,
   so a new object is just 16 lines of text plus a label.

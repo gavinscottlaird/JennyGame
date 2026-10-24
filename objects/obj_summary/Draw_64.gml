@@ -1,6 +1,7 @@
+ui_begin();
 var C  = ui_colours();
-var mx = device_mouse_x_to_gui(0);
-var my = device_mouse_y_to_gui(0);
+var mx = ui_mx();
+var my = ui_my();
 
 draw_backdrop(false);
 
@@ -55,25 +56,28 @@ if (rec == undefined) {
             draw_panel(x1, ey, x2, ey + ENTRY_H - 10,
                        (i % 2 == 0) ? C.panel : C.panel_lo);
 
-            draw_txt(x1 + 16, ey + 10, "#" + string(n - i) + "  " + e.when, 1, C.wall);
-            draw_txt(x1 + 16, ey + 28, txt_fit(e.goal + "   (" + e.focus + ", tier "
+            draw_txt(x1 + 16, ey + 8, "#" + string(n - i) + "  " + e.when, 1, C.wall);
+            draw_txt(x1 + 16, ey + 30, txt_fit(e.goal + "   (" + e.focus + ", tier "
                      + string(e.tier) + ")", 2, 760), 2, C.ink);
-            draw_txt(x1 + 16, ey + 54, txt_fit("Did:  " + e.chain_words, 2, 760), 2, C.wall);
-            draw_txt(x1 + 16, ey + 78, txt_fit("Said: " + e.guess, 2, 760), 2, C.cool);
+            draw_txt(x1 + 16, ey + 56, txt_fit("Did:  " + e.chain_words, 2, 760), 2, C.wall);
+            draw_txt(x1 + 16, ey + 82, txt_fit("Said: " + e.guess, 2, 760), 2, C.cool);
 
             // the ending and the XP
             var xw = 300;
-            draw_txt(x2 - xw * 0.5, ey + 16, outcome_word(e.outcome), 2,
-                     (e.outcome == "win") ? C.good : C.bad, fa_center, fa_top);
-            draw_txt(x2 - xw * 0.5, ey + 42, "+" + string(e.xp) + " XP", 4, C.ink, fa_center, fa_top);
-            draw_txt(x2 - xw * 0.5, ey + 88, "credit: " + e.credit, 1, C.wall, fa_center, fa_top);
-            draw_txt(x1 + 16, ey + 100, txt_fit(e.why, 1, 900), 1, C.wall);
+            var is_choice = variable_struct_exists(e, "result_word");
+            var oword = is_choice ? e.result_word : outcome_word(e.outcome);
+            var ogood = is_choice ? (e.xp == 2) : (e.outcome == "win");
+            draw_txt(x2 - xw * 0.5, ey + 16, oword, 2,
+                     ogood ? C.good : C.bad, fa_center, fa_top);
+            draw_txt(x2 - xw * 0.5, ey + 42, "+" + string(e.xp) + (variable_struct_exists(e, "result_word") ? " pts" : " XP"), 4, C.ink, fa_center, fa_top);
+            draw_txt(x2 - xw * 0.5, ey + 100, "credit: " + e.credit, 1, C.wall, fa_center, fa_top);
+            draw_txt(x1 + 16, ey + 110, txt_fit(e.why, 1, 900), 1, C.wall);
         }
 
         // hide anything poking out of the list area
         draw_set_colour(C.sky);
-        draw_rectangle(0, 276, SCR_W, list_top - 1, false);
-        draw_rectangle(0, list_bot + 1, SCR_W, SCR_H, false);
+        draw_rectangle(ui_left(), 276, ui_right(), list_top - 1, false);
+        draw_rectangle(ui_left(), list_bot + 1, ui_right(), ui_bottom(), false);
 
         // scroll bar
         var view_h = list_bot - list_top;
@@ -86,7 +90,7 @@ if (rec == undefined) {
             draw_set_colour(C.gold);
             draw_rectangle(SCR_W - 30, bar_y, SCR_W - 18, bar_y + bar_h, false);
         }
-        draw_txt(SCR_W * 0.5, 282, "Roll the wheel to see more", 1, C.panel_lo, fa_center, fa_top);
+        draw_txt(SCR_W * 0.5, 278, "Roll the wheel to see more", 1, C.panel_lo, fa_center, fa_top);
     }
 }
 
@@ -96,3 +100,4 @@ draw_text_button(rect_menu[0], rect_menu[1], rect_menu[2], rect_menu[3],
 draw_text_button(rect_again[0], rect_again[1], rect_again[2], rect_again[3],
                  "Play again", 3, hit_rect(mx, my, rect_again));
 draw_back_button(mx, my, "Main menu");
+ui_end();
