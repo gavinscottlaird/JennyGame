@@ -39,11 +39,11 @@ for (var oi = 0; oi < array_length(sc.spots); oi++) {
         draw_set_alpha(1);
         draw_txt_wrap(op.x, cap_y, cap, 1.5, c_hot ? C.gold : C.white, cap_w, fa_center, fa_top, true);
 
-        var ord = 0;
-        for (var q = 0; q < array_length(chain); q++) if (chain[q] == okey) ord = q + 1;
-        if (ord > 0) {
+        var step_no = 0;
+        for (var q = 0; q < array_length(chain); q++) if (chain[q] == okey) step_no = q + 1;
+        if (step_no > 0) {
             var sy  = cap_y + cap_h + 22;
-            var stx = "Step " + string(ord) + " of your plan";
+            var stx = "Step " + string(step_no) + " of your plan";
             var sw  = txt_w(stx, 1, true) + 40;
             draw_set_colour(C.ink);
             draw_rectangle(op.x - sw * 0.5 - 3, sy - 16, op.x + sw * 0.5 + 3, sy + 16, false);
