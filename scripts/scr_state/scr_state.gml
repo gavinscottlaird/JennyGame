@@ -113,6 +113,11 @@ function set_focus(fkey, flabel) {
     global.cur.focus  = fkey;
     global.cur.flabel = flabel;
     global.cur.sindex = 0;
+    // Jenny's levels start on a random Level 1 scenario
+    if (fkey == "levels") {
+        var pick = pick_level_index(scenario_list("levels"), 1);
+        if (pick >= 0) global.cur.sindex = pick;
+    }
     save_log();
 }
 

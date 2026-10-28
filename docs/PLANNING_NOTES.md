@@ -125,6 +125,41 @@ affecting blur."
 Claude chose the design (Jenny left it open). **Built 2026-10-23** on branch
 `jenny/level1-choices`; see HANDOFF.md for what changed and the play check.
 
+## 2026-10-27: More Level 1 scenarios, and how Jenny wants them built
+
+**Jenny:** wants more scenarios at the **same level as her Level 1**, just
+different situations. Her bus scenario ("thirsty + bus", cup and door) is
+"PERFECT" and is the model.
+
+**Design rules, from what Jenny said:**
+1. Two variables only, taken from the situation (for example hungry and
+   tired, or thirsty and a bus). The objects and every ending use only those.
+   No extra variables such as "tired", "sloppy" or "self-control".
+2. Each cost comes from how the action is done (gulp water, then run: cramp).
+3. Order is cause and effect, so each order reads differently.
+4. Each plan's outcome clearly differs and shows the consequence. Two plans
+   share one menu choice only when the result really is the same (for
+   example, both miss the bus), and their texts still name the cause.
+5. The last menu choice (the outlier) is both problems solved with no cost.
+   It never plays because of the situation itself, never because of a new rule.
+
+**Three scenarios Jenny approved (Level 1):**
+
+| Scenario | Objects | Menu choices (4 = outlier) |
+|---|---|---|
+| Picture day: EXTREMELY muddy, picture in 5 minutes | Tub, Door | 1 miss it; 2 on time, muddy; 3 on time, dripping wet; 4 clean with time to spare |
+| Movie time: EXTREMELY hungry, movie in 5 minutes | Snack, Door | 1 miss it; 2 on time, still hungry; 3 on time, stomachache; 4 full and on time |
+| Muddy and sleepy: EXTREMELY muddy and sleepy | Tub, Bed | 1 asleep in the tub; 2 muddy bed; 3 wash, then cannot sleep; 4 clean and rested |
+
+Plans: picture: Tub and Door-then-Tub -> 1; Door -> 2; Tub-then-Door -> 3.
+Movie: Snack and Door-then-Snack -> 1; Door -> 2; Snack-then-Door -> 3.
+Muddy and sleepy: Tub and Tub-then-Bed -> 1; Bed -> 2; Bed-then-Tub -> 3.
+
+**Built 2026-10-27** on `jenny/level1-choices`, not yet played. The game now
+starts on a random Level 1 scenario (fridge and bed, or one of these three).
+**Next level** goes to Level 2. A dropped idea: a "project and TV" scenario,
+because its costs needed extra variables.
+
 ## Open questions (to ask next, one at a time)
 
 - Does any text show in the game on Jenny's computer (e.g. "Play" on the menu)?

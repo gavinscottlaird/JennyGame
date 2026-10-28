@@ -158,6 +158,102 @@ function scenario_all() {
             obsess : "paper",
             correct : [], step_words : [], lesson : "", win : "",
             fail : { incomplete : "" }
+        },
+        {
+            // Level 1 scenario (same level as the fridge and bed): need + deadline, like the bus level
+            key : "level_1_picture", tier : 1, mode : "choice",
+            tier_name : "Level 1", tier_kid : "Level 1",
+            goal     : "{name} is EXTREMELY muddy and the class picture is in 5 minutes.",
+            reminder : "Remember, your character has EXTREME outcomes!",
+            spots    : ["tub", "door"],
+            describe : {
+                tub : "Wash off the mud. (You can't stop scrubbing!)",
+                door : "Go to the class picture."
+            },
+            predict : [
+                "You miss the picture.",
+                "You are in the picture, still covered in mud.",
+                "You are in the picture, dripping wet.",
+                "You are clean and on time, with time to spare."
+            ],
+            outlier : 3,
+            endings : {
+                tub : { pick : 0, gag : "pile",
+                    text : "You scrub and scrub and scrub. You never stop. The picture is over before you are done!" },
+                door_tub : { pick : 0, gag : "spin",
+                    text : "You head out, then see all the mud. You run back to wash. The picture is over by the time you are clean!" },
+                door : { pick : 1, gag : "wobble",
+                    text : "You get to the picture on time. You smile big, covered in mud!" },
+                tub_door : { pick : 2, gag : "wobble",
+                    text : "You wash in a rush and race out. You get to the picture on time, but you are dripping wet!" }
+            },
+            obsess : "tub",
+            correct : [], step_words : [], lesson : "", win : "",
+            fail : { incomplete : "" }
+        },
+        {
+            // Level 1 scenario: need + deadline, like the bus level
+            key : "level_1_movie", tier : 1, mode : "choice",
+            tier_name : "Level 1", tier_kid : "Level 1",
+            goal     : "{name} is EXTREMELY hungry and the movie starts in 5 minutes.",
+            reminder : "Remember, your character has EXTREME outcomes!",
+            spots    : ["snack", "door"],
+            describe : {
+                snack : "Eat the snack. (You can't stop eating!)",
+                door : "Go to the movie."
+            },
+            predict : [
+                "You miss the movie.",
+                "You get there on time, but you are still hungry.",
+                "You get there on time, with a stomachache.",
+                "You are full and on time."
+            ],
+            outlier : 3,
+            endings : {
+                snack : { pick : 0, gag : "pile",
+                    text : "You eat and eat and eat. The movie is over before you finish!" },
+                door_snack : { pick : 0, gag : "spin",
+                    text : "You leave, then run back for food. The movie starts without you!" },
+                door : { pick : 1, gag : "wobble",
+                    text : "You get there on time. Your stomach growls louder than the movie!" },
+                snack_door : { pick : 2, gag : "wobble",
+                    text : "You gulp your food and run to the movie. You get there on time, but your stomach hurts!" }
+            },
+            obsess : "snack",
+            correct : [], step_words : [], lesson : "", win : "",
+            fail : { incomplete : "" }
+        },
+        {
+            // Level 1 scenario: two needs, like the fridge and bed
+            key : "level_1_muddy_sleepy", tier : 1, mode : "choice",
+            tier_name : "Level 1", tier_kid : "Level 1",
+            goal     : "{name} is EXTREMELY muddy and EXTREMELY sleepy.",
+            reminder : "Remember, your character has EXTREME outcomes!",
+            spots    : ["tub", "bed"],
+            describe : {
+                tub : "Take a warm bath.",
+                bed : "Go to sleep in the bed."
+            },
+            predict : [
+                "You fall asleep in the tub.",
+                "You sleep in a muddy bed.",
+                "You sleep in the mud, wake up to wash, and now you cannot fall back asleep.",
+                "You are clean and well rested."
+            ],
+            outlier : 3,
+            endings : {
+                tub : { pick : 0, gag : "wobble",
+                    text : "You sink into the warm water. You are so sleepy that you fall asleep in the tub. You wake up cold and wrinkly!" },
+                tub_bed : { pick : 0, gag : "spin",
+                    text : "You take a warm bath. You are so sleepy that you doze off before you reach the bed!" },
+                bed : { pick : 1, gag : "pile",
+                    text : "You fall into bed, mud and all. You wake up in a muddy bed!" },
+                bed_tub : { pick : 2, gag : "wobble",
+                    text : "You sleep in the mud. You wake up and wash. Now you are wide awake and cannot fall back asleep!" }
+            },
+            obsess : "tub",
+            correct : [], step_words : [], lesson : "", win : "",
+            fail : { incomplete : "" }
         }
     ],
 

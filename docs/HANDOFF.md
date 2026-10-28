@@ -119,6 +119,29 @@ F11 and the corner button go full screen and back, still crisp; on Level 1,
 each click updates the help box and plays its animation; "Take back",
 "Change my plan", and both ending buttons do what their words say.
 
+### More Level 1 scenarios (2026-10-27, built, not yet played)
+
+Jenny approved three new Level 1 scenarios, built on her bus-level pattern
+(two variables only; see PLANNING_NOTES.md for her rules and the full tables):
+`level_1_picture` (muddy, picture in 5 minutes; Tub, Door), `level_1_movie`
+(hungry, movie in 5 minutes; Snack, Door), `level_1_muddy_sleepy` (Tub, Bed).
+They are at the end of the `levels` list in `scr_scenarios`.
+
+- The game now starts on a random Level 1 scenario (the fridge and bed one, or
+  one of the new three). **Next level** picks a random scenario from the next
+  level up, so Level 1 leads to Level 2. Code: `level_pool`,
+  `pick_level_index`, `next_scenario`, `has_next_level` in `scr_scene_util`,
+  and `set_focus` in `scr_state`. Scoring and the save format are unchanged.
+- **Checks done:** brackets balanced in the three changed GML files; each
+  plan key in each new scenario is one of the two objects (and the pair in the
+  other order); every menu pick is 0, 1 or 2 with 3 as the outlier; objects
+  and gags used already exist. **Not run in GameMaker.**
+- **Jenny's play check:** start with a made-up name a few times and watch for
+  different Level 1 scenarios. In each new one, try all four plans and check
+  the ending matches the notes, then check points (2 right, 1 wrong, 0 for
+  the outlier). Check Next level goes to Level 2, and the score screen lists
+  the right scenarios.
+
 ## Jenny's copy of the game
 
 Jenny plays from `C:\Users\JenniferNagrant\GameMakerProjects\JennyGame-main`.
