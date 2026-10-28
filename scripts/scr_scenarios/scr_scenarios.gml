@@ -80,6 +80,184 @@ function scenario_all() {
 
     global.scenario_cache = {
 
+    // ================= LEVELS (Jenny's prediction-menu levels) =================
+    // A "choice" level: the student picks actions in any order (each object
+    // once), then picks one of four predicted endings from a menu.
+    //   goal      : the situation. {name} becomes the player's name.
+    //   reminder  : shown on the intro card and kept on screen.
+    //   describe  : what each object does, shown when the mouse is over it.
+    //   predict   : the four endings in the menu.
+    //   outlier   : index (0-3) of the ending that never fits. Picking it = 0 points.
+    //   endings   : one entry per plan. The key is the objects in order joined
+    //               with "_". pick = which predict[] entry really happens,
+    //               text = what the outcome screen says, gag = the visual joke.
+    // Points: 2 for the right ending, 1 for a wrong one that is not the
+    // outlier, 0 for the outlier (see score_choice in scr_score).
+    levels : [
+        {
+            key : "level_1", tier : 1, mode : "choice",
+            tier_name : "Level 1", tier_kid : "Level 1",
+            goal     : "{name} is EXTREMELY hungry and tired.",
+            reminder : "Remember, your character has EXTREME outcomes!",
+            spots    : ["fridge", "bed"],
+            describe : {
+                fridge : "Eat food from the fridge.",
+                bed    : "Sleep in the bed."
+            },
+            predict : [
+                "You fall asleep eating, then choke on your food.",
+                "You sleep with a stomachache, then wake up and raid the fridge.",
+                "You sleep with a stomachache, then wake up and the stomachache is even worse.",
+                "You get well rested and well fed."
+            ],
+            outlier : 3,
+            endings : {
+                fridge_bed : { pick : 0, gag : "wobble",
+                    text : "You take your food to bed. You fall asleep while you are still eating, and you choke on your food!" },
+                fridge     : { pick : 0, gag : "wobble",
+                    text : "You eat and eat. You never get to the bed. You fall asleep on the floor, still eating, and choke on your food!" },
+                bed_fridge : { pick : 1, gag : "pile",
+                    text : "You sleep with a stomachache. Then you wake up and raid the fridge!" },
+                bed        : { pick : 2, gag : "spin",
+                    text : "You sleep with a stomachache. You wake up and the stomachache is even worse!" }
+            },
+            obsess : "fridge",
+            // not used by choice levels, kept so older code never trips on them
+            correct : [], step_words : [], lesson : "", win : "",
+            fail : { incomplete : "" }
+        },
+        {
+            // Claude's level for Jenny to test. A bit harder than Level 1:
+            // the three bad endings are closer to each other.
+            key : "level_2", tier : 2, mode : "choice",
+            tier_name : "Level 2", tier_kid : "Level 2",
+            goal     : "{name} has a big test tomorrow and is EXTREMELY tired.",
+            reminder : "Remember, your character has EXTREME outcomes!",
+            spots    : ["desk", "bed"],
+            describe : {
+                desk : "Study for the test at the desk.",
+                bed  : "Go to sleep in the bed."
+            },
+            predict : [
+                "You fall asleep on your book and wake up with words stuck on your face.",
+                "You sleep so long that you miss the test.",
+                "You study all night, then fall asleep during the test.",
+                "You study a little, sleep well, and do great on the test."
+            ],
+            outlier : 3,
+            endings : {
+                desk_bed : { pick : 2, gag : "wobble",
+                    text : "You study all night. You get to bed just as the sun comes up. You fall asleep during the test!" },
+                desk     : { pick : 0, gag : "spin",
+                    text : "You study and study, and fall asleep on your book. You wake up with words stuck on your face!" },
+                bed_desk : { pick : 1, gag : "pile",
+                    text : "You sleep so long that you miss the test. Then you wake up and study for a test that is over!" },
+                bed      : { pick : 1, gag : "wobble",
+                    text : "You sleep and sleep and sleep. You sleep so long that you miss the test!" }
+            },
+            obsess : "paper",
+            correct : [], step_words : [], lesson : "", win : "",
+            fail : { incomplete : "" }
+        },
+        {
+            // Level 1 scenario (same level as the fridge and bed): need + deadline, like the bus level
+            key : "level_1_picture", tier : 1, mode : "choice",
+            tier_name : "Level 1", tier_kid : "Level 1",
+            goal     : "{name} is EXTREMELY muddy and the class picture is in 5 minutes.",
+            reminder : "Remember, your character has EXTREME outcomes!",
+            spots    : ["tub", "door"],
+            describe : {
+                tub : "Wash off the mud. (You can't stop scrubbing!)",
+                door : "Go to the class picture."
+            },
+            predict : [
+                "You miss the picture.",
+                "You are in the picture, still covered in mud.",
+                "You are in the picture, dripping wet.",
+                "You are clean and on time, with time to spare."
+            ],
+            outlier : 3,
+            endings : {
+                tub : { pick : 0, gag : "pile",
+                    text : "You scrub and scrub and scrub. You never stop. The picture is over before you are done!" },
+                door_tub : { pick : 0, gag : "spin",
+                    text : "You head out, then see all the mud. You run back to wash. The picture is over by the time you are clean!" },
+                door : { pick : 1, gag : "wobble",
+                    text : "You get to the picture on time. You smile big, covered in mud!" },
+                tub_door : { pick : 2, gag : "wobble",
+                    text : "You wash in a rush and race out. You get to the picture on time, but you are dripping wet!" }
+            },
+            obsess : "tub",
+            correct : [], step_words : [], lesson : "", win : "",
+            fail : { incomplete : "" }
+        },
+        {
+            // Level 1 scenario: need + deadline, like the bus level
+            key : "level_1_movie", tier : 1, mode : "choice",
+            tier_name : "Level 1", tier_kid : "Level 1",
+            goal     : "{name} is EXTREMELY hungry and the movie starts in 5 minutes.",
+            reminder : "Remember, your character has EXTREME outcomes!",
+            spots    : ["snack", "door"],
+            describe : {
+                snack : "Eat the snack. (You can't stop eating!)",
+                door : "Go to the movie."
+            },
+            predict : [
+                "You miss the movie.",
+                "You get there on time, but you are still hungry.",
+                "You get there on time, with a stomachache.",
+                "You are full and on time."
+            ],
+            outlier : 3,
+            endings : {
+                snack : { pick : 0, gag : "pile",
+                    text : "You eat and eat and eat. The movie is over before you finish!" },
+                door_snack : { pick : 0, gag : "spin",
+                    text : "You leave, then run back for food. The movie starts without you!" },
+                door : { pick : 1, gag : "wobble",
+                    text : "You get there on time. Your stomach growls louder than the movie!" },
+                snack_door : { pick : 2, gag : "wobble",
+                    text : "You gulp your food and run to the movie. You get there on time, but your stomach hurts!" }
+            },
+            obsess : "snack",
+            correct : [], step_words : [], lesson : "", win : "",
+            fail : { incomplete : "" }
+        },
+        {
+            // Level 1 scenario: two needs, like the fridge and bed
+            key : "level_1_muddy_sleepy", tier : 1, mode : "choice",
+            tier_name : "Level 1", tier_kid : "Level 1",
+            goal     : "{name} is EXTREMELY muddy and EXTREMELY sleepy.",
+            reminder : "Remember, your character has EXTREME outcomes!",
+            spots    : ["tub", "bed"],
+            describe : {
+                tub : "Take a warm bath.",
+                bed : "Go to sleep in the bed."
+            },
+            predict : [
+                "You fall asleep in the tub.",
+                "You sleep in a muddy bed.",
+                "You sleep in the mud, wake up to wash, and now you cannot fall back asleep.",
+                "You are clean and well rested."
+            ],
+            outlier : 3,
+            endings : {
+                tub : { pick : 0, gag : "wobble",
+                    text : "You sink into the warm water. You are so sleepy that you fall asleep in the tub. You wake up cold and wrinkly!" },
+                tub_bed : { pick : 0, gag : "spin",
+                    text : "You take a warm bath. You are so sleepy that you doze off before you reach the bed!" },
+                bed : { pick : 1, gag : "pile",
+                    text : "You fall into bed, mud and all. You wake up in a muddy bed!" },
+                bed_tub : { pick : 2, gag : "wobble",
+                    text : "You sleep in the mud. You wake up and wash. Now you are wide awake and cannot fall back asleep!" }
+            },
+            obsess : "tub",
+            correct : [], step_words : [], lesson : "", win : "",
+            fail : { incomplete : "" }
+        }
+    ],
+
+
     // ================= SCHOOL =================
     school : [
         {

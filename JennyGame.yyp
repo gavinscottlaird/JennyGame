@@ -16,7 +16,11 @@
     {"$GMFolder":"","%Name":"Scripts","folderPath":"folders/Scripts.yy","name":"Scripts","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
   "ForcedPrefabProjectReferences":[],
-  "IncludedFiles":[],
+  "IncludedFiles":[
+    {"$GMIncludedFile":"","%Name":"AtkinsonHyperlegible-Bold.ttf","CopyToMask":-1,"filePath":"datafiles","name":"AtkinsonHyperlegible-Bold.ttf","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"AtkinsonHyperlegible-OFL.txt","CopyToMask":-1,"filePath":"datafiles","name":"AtkinsonHyperlegible-OFL.txt","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"AtkinsonHyperlegible-Regular.ttf","CopyToMask":-1,"filePath":"datafiles","name":"AtkinsonHyperlegible-Regular.ttf","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+  ],
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
@@ -45,6 +49,7 @@
     {"id":{"name":"scr_outcome","path":"scripts/scr_outcome/scr_outcome.yy",},},
     {"id":{"name":"scr_state","path":"scripts/scr_state/scr_state.yy",},},
     {"id":{"name":"scr_scene_util","path":"scripts/scr_scene_util/scr_scene_util.yy",},},
+    {"id":{"name":"scr_screen","path":"scripts/scr_screen/scr_screen.yy",},},
   ],
   "resourceType":"GMProject",
   "resourceVersion":"2.0",

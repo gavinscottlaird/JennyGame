@@ -117,10 +117,13 @@ is enabled, without inventing a completed feature.
   Preserve the existing scoring/learning rules and player data unless the
   requested change requires otherwise; explain any proposed change to them.
 - Keep player-facing wording short and simple, consistent with the existing
-  second-grade reading-level goal. Art is drawn from code; the font is a resource.
+  second-grade reading-level goal. Art is drawn from code; text uses the font
+  files in `datafiles/` through `scripts/scr_screen` (keeps it sharp at any size).
 - Keep `.yyp` and `.yy` resource references consistent when adding resources.
   GameMaker files can contain trailing commas; ordinary JSON parsing alone is
   not a valid GameMaker build check. Keep generated `output/` out of Git.
+- Update `GAME_VERSION` in `scripts/scr_config` with every game change; the
+  title screen shows it so testers can tell which copy they are running.
 - Use made-up names for play checks. Player logs live outside the project in
   `%LOCALAPPDATA%\JennyGame\pps_log.json` on Windows; do not publish them.
 - Scale checks to the change. For gameplay changes, the handoff has a baseline

@@ -1,6 +1,18 @@
-var mx    = device_mouse_x_to_gui(0);
-var my    = device_mouse_y_to_gui(0);
-var click = mouse_check_button_pressed(mb_left);
+var mx    = ui_mx();
+var my    = ui_my();
+var click = ui_click();
+
+// every animation runs on its own clock
+t++;
+guide_t++;
+shake_t++;
+pick_t++;
+if (result_on) result_t++;
+for (var fi = array_length(fx) - 1; fi >= 0; fi--) {
+    var fe = fx[fi];
+    fe.t += 1;
+    if (fe.t >= fe.dur) array_delete(fx, fi, 1);
+}
 
 // bottom-left arrow: end the session. Always there, except while the modal is up.
 if (state != "modal" && click && hit_rect(mx, my, rect_end())) {
@@ -9,6 +21,42 @@ if (state != "modal" && click && hit_rect(mx, my, rect_end())) {
 }
 
 switch (state) {
+
+    // ---------------- choice levels: the situation card ----------------
+    case "intro": {
+        if ((click && hit_rect(mx, my, rect_go())) || keyboard_check_pressed(vk_enter)) {
+            state    = "pick";
+            did      = "";
+            did_warn = false;
+        }
+    } break;
+
+    // ---------------- choice levels: pick one of four guesses ----------------
+    case "choose": {
+        if (click) {
+            var on_card = false;
+            for (var ci = 0; ci < array_length(sc.predict); ci++) {
+                if (hit_rect(mx, my, choice_rect(ci))) {
+                    on_card = true;
+                    if (pick != ci) {
+                        pick     = ci;
+                        pick_t   = 0;
+                        did      = "You picked number " + string(ci + 1) + ".";
+                        did_warn = false;
+                    }
+                    break;
+                }
+            }
+            if (!on_card && hit_rect(mx, my, rect_go())) {
+                if (pick >= 0) submit_choice();
+                else nudge("First tap the ending you think will happen.");
+            }
+            if (state == "choose" && hit_rect(mx, my, rect_change)) back_to_plan();
+        }
+        if (state == "choose" && pick >= 0 && keyboard_check_pressed(vk_enter)) submit_choice();
+        // change the plan
+        if (state == "choose" && keyboard_check_pressed(vk_escape)) back_to_plan();
+    } break;
 
     // ---------------- picking buttons ----------------
     case "pick": {
@@ -26,25 +74,55 @@ switch (state) {
         }
 
         if (click) {
+            var used = false;
+
             // an action button above an object
             for (var i = 0; i < array_length(sc.spots); i++) {
                 var k = sc.spots[i];
                 var p = places[$ k];
                 if (hit_circle(mx, my, p.bx, p.by, BTN_R + 3)) {
-                    if (array_length(chain) < 8) array_push(chain, k);
+                    used = true;
+                    // choice levels: each thing can be picked once
+                    var can = !is_choice || chain_count(chain, k) == 0;
+                    if (!can) {
+                        nudge(chain_label(k) + " is already in your plan. Tap Take back to change it.");
+                    } else if (array_length(chain) >= 8) {
+                        nudge("Your plan is full.");
+                    } else {
+                        add_to_plan(k);
+                    }
                     break;
                 }
             }
-            // take the last one back
-            if (array_length(chain) > 0 && hit_circle(mx, my, UNDO_X, UNDO_Y, 20)) {
-                array_pop(chain);
+
+            // "Take back": the last step comes out of the plan
+            var L = plan_layout();
+            if (!used && L.undo != undefined && hit_rect(mx, my, L.undo)) {
+                undo_last();
+                used = true;
             }
-            // "Check what happens"
-            if (array_length(chain) > 0 && hit_rect(mx, my, rect_go())) {
-                state = "modal";
-                guess = "";
-                keyboard_string = "";
+
+            // "I'm ready to guess" / "Check what happens"
+            if (!used && hit_rect(mx, my, rect_go())) {
+                if (array_length(chain) == 0) {
+                    nudge("First tap a round button to make your plan.");
+                } else if (is_choice) {
+                    state    = "choose";       // pick from the four endings
+                    pick     = -1;
+                    did      = "Your plan: " + plan_words() + ".";
+                    did_warn = false;
+                } else {
+                    state = "modal";
+                    guess = "";
+                    keyboard_string = "";
+                }
             }
+        }
+        if (is_choice && array_length(chain) > 0 && keyboard_check_pressed(vk_enter)) {
+            state    = "choose";
+            pick     = -1;
+            did      = "Your plan: " + plan_words() + ".";
+            did_warn = false;
         }
     } break;
 
@@ -94,17 +172,33 @@ switch (state) {
                 } break;
 
                 case "result": {
-                    result_on = true;
-                    say       = "";
+                    if (!result_on) {
+                        result_on = true;
+                        on_result();
+                    }
+                    say = "";
                 } break;
             }
         }
 
-        if (result_on && click) {
-            if (hit_circle(mx, my, REW_X, REW_Y, REW_R + 4)) {
-                reset_scene();                       // time machine
-            } else if (hit_rect(mx, my, rect_go())) {
-                if (kind == "win") {
+        // clicking while it plays: say why nothing happens yet
+        if (!result_on && click && hit_rect(mx, my, rect_go())) {
+            nudge("Watch first. The buttons come back at the end.");
+        }
+
+        if (result_on) {
+            var go_key = keyboard_check_pressed(vk_enter);
+            if (click && hit_rect(mx, my, rect_try)) {
+                reset_scene();                       // time machine: try again
+            } else if (go_key || (click && hit_rect(mx, my, rect_go()))) {
+                if (is_choice) {
+                    if (has_next_level()) {
+                        next_scenario();
+                        room_restart();              // on to the next level
+                    } else {
+                        end_session();               // last level: see the score
+                    }
+                } else if (kind == "win") {
                     next_scenario();
                     room_restart();                  // load the next problem
                 } else {

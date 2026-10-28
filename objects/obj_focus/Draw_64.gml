@@ -1,7 +1,8 @@
+ui_begin();
 var C  = ui_colours();
 var A  = art_objects();
-var mx = device_mouse_x_to_gui(0);
-var my = device_mouse_y_to_gui(0);
+var mx = ui_mx();
+var my = ui_my();
 var fl = focus_list();
 
 draw_backdrop(false);
@@ -15,6 +16,7 @@ var icons = { school : "backpack", social : "ball", home : "bed", food : "fridge
 for (var i = 0; i < array_length(fl); i++) {
     var r   = tag_rect(i);
     var hot = hit_rect(mx, my, r);
+    if (hot) ui_hand();
     draw_set_colour(hot ? C.gold : C.ink);
     draw_rectangle(r[0] - 5, r[1] - 5, r[2] + 5, r[3] + 5, false);
     draw_set_colour(hot ? C.panel : C.panel_lo);
@@ -43,3 +45,4 @@ if ((current_time div 400) % 2 == 0) {
 if (msg != "") draw_txt(SCR_W * 0.5, 584, msg, 2, C.bad, fa_center, fa_top);
 
 draw_back_button(mx, my, "Back");
+ui_end();
