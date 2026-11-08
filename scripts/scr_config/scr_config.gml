@@ -5,7 +5,7 @@
 // ---- version label, shown on the title screen ----
 // Change this with every game change, so whoever is testing can see at a
 // glance that they opened the newest copy.
-#macro GAME_VERSION "Version: Oct 27 - more Level 1 scenarios"
+#macro GAME_VERSION "Version: Nov 8 - Dot test run (Levels A-D)"
 
 // ---- screen ----
 #macro SCR_W 1366

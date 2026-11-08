@@ -36,12 +36,19 @@ missing), which helps when someone reports a problem.
 
 ## Levels with a prediction menu (Jenny's design, in progress)
 
-After the player types a name, the game now goes straight to **Level 1**
+After the player types a name, the game now goes straight to **Level A**
 (`levels` in `scr_scenarios`). The focus screen and the 12 older scenarios are
 still in the project but not used for now.
 
-- An intro card shows the situation and the reminder "Remember, your character
-  has EXTREME outcomes!"
+**Dot test run (Nov 2026):** four levels starring Dot the Dino, one from each
+problem set: A (one step), B (with a trap), C (an emotion), D (Dot walks up
+to others who have feelings). Each has two objects, so there are four plans
+(either object alone, or both in either order). Each action always causes the
+same thing, so each plan has its own ending, and the four guesses in the menu
+are those four endings.
+
+- An intro card shows the situation and the reminder "Think: what will each
+  action cause?"
 - What each round button does is written under its object ("Eat food from the
   fridge."). Each object can be picked once, in any order.
 - **I'm ready to guess** opens a menu of four endings. Pick one, then
@@ -67,9 +74,9 @@ this, Oct 2026):
   to the score box; a matched guess gets confetti. "Try again" is always
   written next to the time machine.
 - A hand pointer shows over anything you can click; buttons sink when pressed.
-- Points: **2** if the guess matches what happened, **1** if it is wrong but
-  could have happened, **0** for the outlier (the ending that never fits).
-  See `score_choice` in `scr_score`.
+- Points: **2** if the guess matches what happened, otherwise **0** in the Dot
+  levels (they have no outlier). Levels with an outlier score 2, 1 if wrong
+  but possible, 0 for the outlier. See `score_choice` in `scr_score`.
 - Each level lists its plans and endings in `endings`; see the comment at the
   top of the `levels` list for how to add a level.
 

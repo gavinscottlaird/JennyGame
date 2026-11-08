@@ -59,7 +59,15 @@ function object_verb(key) {
         plate    : "Get a plate",
         table    : "Sit and eat",
         bread    : "Get bread",
-        toaster  : "Make toast"
+        toaster  : "Make toast",
+        river    : "Drink",
+        bush     : "Eat berries",
+        grass    : "Nap",
+        thorns   : "Walk through",
+        hill     : "Climb and call",
+        cave     : "Hide",
+        shy      : "Sit together",
+        group    : "Walk over"
     };
     if (variable_struct_exists(V, key)) return V[$ key];
     return "Use it";
@@ -81,177 +89,144 @@ function scenario_all() {
     global.scenario_cache = {
 
     // ================= LEVELS (Jenny's prediction-menu levels) =================
-    // A "choice" level: the student picks actions in any order (each object
-    // once), then picks one of four predicted endings from a menu.
-    //   goal      : the situation. {name} becomes the player's name.
+    // Dot test run (2026-11-08): one level each for sets A, B, C and D.
+    // A "choice" level: the student picks one or both objects, in either order.
+    // That makes four plans. Each plan has its own ending, and the four
+    // guesses in the menu are those four endings (cause and effect).
+    //   goal      : the situation.
     //   reminder  : shown on the intro card and kept on screen.
-    //   describe  : what each object does, shown when the mouse is over it.
-    //   predict   : the four endings in the menu.
-    //   outlier   : index (0-3) of the ending that never fits. Picking it = 0 points.
+    //   describe  : what each object does (shown under it and while acting).
+    //   predict   : the four endings in the menu, in plan order.
+    //   outlier   : -1 = no outlier. Every guess is a real ending.
     //   endings   : one entry per plan. The key is the objects in order joined
     //               with "_". pick = which predict[] entry really happens,
     //               text = what the outcome screen says, gag = the visual joke.
-    // Points: 2 for the right ending, 1 for a wrong one that is not the
-    // outlier, 0 for the outlier (see score_choice in scr_score).
+    // Points: 2 for the guess that matches what happened, 0 otherwise
+    // (see score_choice in scr_score).
+    // The old fridge/bed, test, picture, movie and muddy levels were removed
+    // for this test run; they are still in Git history.
     levels : [
         {
-            key : "level_1", tier : 1, mode : "choice",
-            tier_name : "Level 1", tier_kid : "Level 1",
-            goal     : "{name} is EXTREMELY hungry and tired.",
-            reminder : "Remember, your character has EXTREME outcomes!",
-            spots    : ["fridge", "bed"],
+            key : "dot_a", tier : 1, mode : "choice",
+            tier_name : "Level A", tier_kid : "Level A",
+            goal     : "Dot is very thirsty.",
+            reminder : "Think: what will each action cause?",
+            spots    : ["river", "bush"],
             describe : {
-                fridge : "Eat food from the fridge.",
-                bed    : "Sleep in the bed."
+                river : "Drink from the river.",
+                bush : "Eat the sour berries."
             },
             predict : [
-                "You fall asleep eating, then choke on your food.",
-                "You sleep with a stomachache, then wake up and raid the fridge.",
-                "You sleep with a stomachache, then wake up and the stomachache is even worse.",
-                "You get well rested and well fed."
+                "Dot's thirst goes away.",
+                "Dot's mouth gets dry, and she is still thirsty.",
+                "Dot's thirst goes away, then her mouth gets dry again.",
+                "Dot's mouth gets dry, then her thirst goes away."
             ],
-            outlier : 3,
+            outlier : -1,
             endings : {
-                fridge_bed : { pick : 0, gag : "wobble",
-                    text : "You take your food to bed. You fall asleep while you are still eating, and you choke on your food!" },
-                fridge     : { pick : 0, gag : "wobble",
-                    text : "You eat and eat. You never get to the bed. You fall asleep on the floor, still eating, and choke on your food!" },
-                bed_fridge : { pick : 1, gag : "pile",
-                    text : "You sleep with a stomachache. Then you wake up and raid the fridge!" },
-                bed        : { pick : 2, gag : "spin",
-                    text : "You sleep with a stomachache. You wake up and the stomachache is even worse!" }
+                river : { pick : 0, gag : "cheer",
+                    text : "Dot drinks from the river. Her thirst goes away." },
+                bush : { pick : 1, gag : "wobble",
+                    text : "Dot eats the sour berries. Her mouth gets dry, and she is still thirsty." },
+                river_bush : { pick : 2, gag : "spin",
+                    text : "Dot's thirst goes away. Then the sour berries make her mouth dry again." },
+                bush_river : { pick : 3, gag : "cheer",
+                    text : "The sour berries make Dot's mouth dry. Then she drinks, and her thirst goes away." }
             },
-            obsess : "fridge",
-            // not used by choice levels, kept so older code never trips on them
+            obsess : "river",
             correct : [], step_words : [], lesson : "", win : "",
             fail : { incomplete : "" }
         },
         {
-            // Claude's level for Jenny to test. A bit harder than Level 1:
-            // the three bad endings are closer to each other.
-            key : "level_2", tier : 2, mode : "choice",
-            tier_name : "Level 2", tier_kid : "Level 2",
-            goal     : "{name} has a big test tomorrow and is EXTREMELY tired.",
-            reminder : "Remember, your character has EXTREME outcomes!",
-            spots    : ["desk", "bed"],
+            key : "dot_b", tier : 2, mode : "choice",
+            tier_name : "Level B", tier_kid : "Level B",
+            goal     : "Dot is tired. Her nap spot is past a thorny bush.",
+            reminder : "Think: what will each action cause?",
+            spots    : ["grass", "thorns"],
             describe : {
-                desk : "Study for the test at the desk.",
-                bed  : "Go to sleep in the bed."
+                grass : "Nap in the soft grass.",
+                thorns : "Walk through the thorns."
             },
             predict : [
-                "You fall asleep on your book and wake up with words stuck on your face.",
-                "You sleep so long that you miss the test.",
-                "You study all night, then fall asleep during the test.",
-                "You study a little, sleep well, and do great on the test."
+                "Dot wakes up rested.",
+                "Dot gets scratched, and she is still tired.",
+                "Dot wakes up rested, then gets scratched.",
+                "Dot gets scratched, then wakes up rested."
             ],
-            outlier : 3,
+            outlier : -1,
             endings : {
-                desk_bed : { pick : 2, gag : "wobble",
-                    text : "You study all night. You get to bed just as the sun comes up. You fall asleep during the test!" },
-                desk     : { pick : 0, gag : "spin",
-                    text : "You study and study, and fall asleep on your book. You wake up with words stuck on your face!" },
-                bed_desk : { pick : 1, gag : "pile",
-                    text : "You sleep so long that you miss the test. Then you wake up and study for a test that is over!" },
-                bed      : { pick : 1, gag : "wobble",
-                    text : "You sleep and sleep and sleep. You sleep so long that you miss the test!" }
+                grass : { pick : 0, gag : "cheer",
+                    text : "Dot naps in the soft grass. She wakes up rested." },
+                thorns : { pick : 1, gag : "wobble",
+                    text : "Dot walks through the thorns. She gets scratched, and she is still tired." },
+                grass_thorns : { pick : 2, gag : "spin",
+                    text : "Dot wakes up rested. Then she walks through the thorns and gets scratched." },
+                thorns_grass : { pick : 3, gag : "wobble",
+                    text : "Dot gets scratched. Then she naps and wakes up rested, but still scratched." }
             },
-            obsess : "paper",
+            obsess : "grass",
             correct : [], step_words : [], lesson : "", win : "",
             fail : { incomplete : "" }
         },
         {
-            // Level 1 scenario (same level as the fridge and bed): need + deadline, like the bus level
-            key : "level_1_picture", tier : 1, mode : "choice",
-            tier_name : "Level 1", tier_kid : "Level 1",
-            goal     : "{name} is EXTREMELY muddy and the class picture is in 5 minutes.",
-            reminder : "Remember, your character has EXTREME outcomes!",
-            spots    : ["tub", "door"],
+            key : "dot_c", tier : 3, mode : "choice",
+            tier_name : "Level C", tier_kid : "Level C",
+            goal     : "Dot is lonely. Her herd is far away.",
+            reminder : "Think: what will each action cause?",
+            spots    : ["hill", "cave"],
             describe : {
-                tub : "Wash off the mud. (You can't stop scrubbing!)",
-                door : "Go to the class picture."
+                hill : "Climb the hill and call out.",
+                cave : "Hide in the cave."
             },
             predict : [
-                "You miss the picture.",
-                "You are in the picture, still covered in mud.",
-                "You are in the picture, dripping wet.",
-                "You are clean and on time, with time to spare."
+                "The herd calls back, and Dot feels better.",
+                "No one hears Dot, and she feels lonelier.",
+                "The herd calls back, but then they can't find Dot.",
+                "Dot feels lonelier, then the herd calls back."
             ],
-            outlier : 3,
+            outlier : -1,
             endings : {
-                tub : { pick : 0, gag : "pile",
-                    text : "You scrub and scrub and scrub. You never stop. The picture is over before you are done!" },
-                door_tub : { pick : 0, gag : "spin",
-                    text : "You head out, then see all the mud. You run back to wash. The picture is over by the time you are clean!" },
-                door : { pick : 1, gag : "wobble",
-                    text : "You get to the picture on time. You smile big, covered in mud!" },
-                tub_door : { pick : 2, gag : "wobble",
-                    text : "You wash in a rush and race out. You get to the picture on time, but you are dripping wet!" }
+                hill : { pick : 0, gag : "cheer",
+                    text : "Dot climbs the hill and calls. The herd calls back, and she feels better." },
+                cave : { pick : 1, gag : "wobble",
+                    text : "Dot hides in the cave. No one can hear her, and she feels lonelier." },
+                hill_cave : { pick : 2, gag : "spin",
+                    text : "The herd calls back. Then Dot hides in the cave, so they can't find her, and she feels lonely again." },
+                cave_hill : { pick : 3, gag : "cheer",
+                    text : "Dot feels lonelier in the cave. Then she climbs the hill and calls, and the herd calls back." }
             },
-            obsess : "tub",
+            obsess : "hill",
             correct : [], step_words : [], lesson : "", win : "",
             fail : { incomplete : "" }
         },
         {
-            // Level 1 scenario: need + deadline, like the bus level
-            key : "level_1_movie", tier : 1, mode : "choice",
-            tier_name : "Level 1", tier_kid : "Level 1",
-            goal     : "{name} is EXTREMELY hungry and the movie starts in 5 minutes.",
-            reminder : "Remember, your character has EXTREME outcomes!",
-            spots    : ["snack", "door"],
+            key : "dot_d", tier : 4, mode : "choice",
+            tier_name : "Level D", tier_kid : "Level D",
+            goal     : "A shy dino is sitting alone. A group is playing a game.",
+            reminder : "Think: what will each action cause?",
+            spots    : ["shy", "group"],
             describe : {
-                snack : "Eat the snack. (You can't stop eating!)",
-                door : "Go to the movie."
+                shy : "Sit next to the shy dino.",
+                group : "Walk over to the group."
             },
             predict : [
-                "You miss the movie.",
-                "You get there on time, but you are still hungry.",
-                "You get there on time, with a stomachache.",
-                "You are full and on time."
+                "The shy dino smiles and stays by Dot.",
+                "The group asks Dot to play. The shy dino is left alone.",
+                "The group asks Dot and the shy dino to play.",
+                "The shy dino smiles, but the game goes on without them."
             ],
-            outlier : 3,
+            outlier : -1,
             endings : {
-                snack : { pick : 0, gag : "pile",
-                    text : "You eat and eat and eat. The movie is over before you finish!" },
-                door_snack : { pick : 0, gag : "spin",
-                    text : "You leave, then run back for food. The movie starts without you!" },
-                door : { pick : 1, gag : "wobble",
-                    text : "You get there on time. Your stomach growls louder than the movie!" },
-                snack_door : { pick : 2, gag : "wobble",
-                    text : "You gulp your food and run to the movie. You get there on time, but your stomach hurts!" }
+                shy : { pick : 0, gag : "cheer",
+                    text : "Dot sits next to the shy dino. He smiles and stays by her side." },
+                group : { pick : 1, gag : "wobble",
+                    text : "Dot walks over to the group. They ask her to play, and the shy dino is left alone." },
+                shy_group : { pick : 2, gag : "cheer",
+                    text : "The shy dino stays by Dot's side. Then the group asks them both to play." },
+                group_shy : { pick : 3, gag : "spin",
+                    text : "The group asks Dot to play, and the shy dino is left alone. Then she sits with him, and he smiles, but the game goes on without them." }
             },
-            obsess : "snack",
-            correct : [], step_words : [], lesson : "", win : "",
-            fail : { incomplete : "" }
-        },
-        {
-            // Level 1 scenario: two needs, like the fridge and bed
-            key : "level_1_muddy_sleepy", tier : 1, mode : "choice",
-            tier_name : "Level 1", tier_kid : "Level 1",
-            goal     : "{name} is EXTREMELY muddy and EXTREMELY sleepy.",
-            reminder : "Remember, your character has EXTREME outcomes!",
-            spots    : ["tub", "bed"],
-            describe : {
-                tub : "Take a warm bath.",
-                bed : "Go to sleep in the bed."
-            },
-            predict : [
-                "You fall asleep in the tub.",
-                "You sleep in a muddy bed.",
-                "You sleep in the mud, wake up to wash, and now you cannot fall back asleep.",
-                "You are clean and well rested."
-            ],
-            outlier : 3,
-            endings : {
-                tub : { pick : 0, gag : "wobble",
-                    text : "You sink into the warm water. You are so sleepy that you fall asleep in the tub. You wake up cold and wrinkly!" },
-                tub_bed : { pick : 0, gag : "spin",
-                    text : "You take a warm bath. You are so sleepy that you doze off before you reach the bed!" },
-                bed : { pick : 1, gag : "pile",
-                    text : "You fall into bed, mud and all. You wake up in a muddy bed!" },
-                bed_tub : { pick : 2, gag : "wobble",
-                    text : "You sleep in the mud. You wake up and wash. Now you are wide awake and cannot fall back asleep!" }
-            },
-            obsess : "tub",
+            obsess : "shy",
             correct : [], step_words : [], lesson : "", win : "",
             fail : { incomplete : "" }
         }

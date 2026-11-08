@@ -44,11 +44,12 @@ function art_chars() {
     var d_e = make_colour_rgb(40, 60, 90);      // eyes
     var d_r = make_colour_rgb(224, 110, 104);   // shoes
 
-    // ---- sauropod ----
-    var s_g = make_colour_rgb(118, 190, 132);   // skin
-    var s_d = make_colour_rgb(78, 148, 100);    // shade
-    var s_b = make_colour_rgb(238, 230, 180);   // belly
-    var s_e = make_colour_rgb(40, 60, 50);      // eye
+    // ---- Dot the sauropod ----
+    var s_g = make_colour_rgb(132, 206, 140);   // skin
+    var s_d = make_colour_rgb(98, 172, 116);    // shade
+    var s_b = make_colour_rgb(248, 238, 196);   // belly
+    var s_w = make_colour_rgb(255, 255, 255);   // eye shine
+    var s_p = make_colour_rgb(244, 150, 160);   // cheek
 
     global.art_chars_cache = {
         robot : {
@@ -136,30 +137,31 @@ function art_chars() {
         },
 
         dino : {
-            label : "Dino",
-            pal   : { k: k, g: s_g, d: s_d, b: s_b, e: s_e },
-            hit   : [1, 8, 14, 19],
+            // Dot the Dino (Jenny's pick, 2026-11-08: version 1, legs level with the belly)
+            label : "Dot",
+            pal   : { k: k, g: s_g, d: s_d, b: s_b, w: s_w, p: s_p },
+            hit   : [0, 3, 15, 19],
             map   : [
+                "................",
+                "................",
+                "................",
                 "..........kkkk..",
-                ".........kggegk.",
+                ".........kggggk.",
+                ".........kgkwggk",
+                ".........kgkkgpk",
+                "..........kgggk.",
+                "..........kggk..",
+                "..........kggk..",
+                "..........kggk..",
+                "..........kggk..",
                 ".........kgggk..",
-                "..........kgk...",
-                "..........kgk...",
-                ".........kgk....",
-                ".........kgk....",
-                "........kgk.....",
-                "..kkk...kgk.....",
-                ".kdddkkkggk.....",
-                "kddggggggggkk...",
-                "kdgggggggggggk..",
-                ".kgbbbbbbbgggk..",
-                ".kgbbbbbbbbbgk..",
-                "..kggbbbbbggk...",
-                "..kgkkggkkgggk..",
-                "..kgk.kgk.kggk..",
-                "..kgk.kgk.kgk...",
-                "..kgk.kgk.kgk...",
-                "..kkk.kkk.kkk..."
+                "......kkkkggggk.",
+                "....kkgdggggggk.",
+                "..kkgggggggdggk.",
+                ".kgggbbbbbbbbgk.",
+                "kgkkkggkggkggk..",
+                "kk..kggkggkggk..",
+                "....kkkkkkkkkk.."
             ]
         }
     };
