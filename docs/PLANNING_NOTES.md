@@ -160,6 +160,43 @@ starts on a random Level 1 scenario (fridge and bed, or one of these three).
 **Next level** goes to Level 2. A dropped idea: a "project and TV" scenario,
 because its costs needed extra variables.
 
+## 2026-11-08: New direction — animal characters and problem sets
+
+**Jenny:** "I have decided that I don't like this version much. It's too
+unrealistic." She wants animal problems: some distance from real life, but
+students can connect to them and try to fix them.
+
+**Rules for problems (Jenny's words and choices):**
+- "I'm not interested in the solutions being something they can't do
+  themselves." The fix must be something the **character itself** can do
+  ("Buzz can't open the window").
+- Wrong options must not be close to right: she rejected a goldfish scenario
+  because two answers sounded plausible.
+
+**Problem sets (Jenny named them):**
+- **Set A:** simple, one step (like Buzz the Bee flying out the open door).
+- **Set B:** a little harder, two steps, with a trap (like Kiko the Cat:
+  chair first, then the floor).
+- **Set C:** one step, involving an emotion — the character's own or someone
+  they meet. Jenny: "I really like these."
+- **Set D:** two steps, with one emotion. Jenny: "These are fantastic."
+
+Claude's drafts of A–D (6 + 6 + 4 + 4 scenarios) are in the chat of
+2026-11-08; they need to be rewritten around the chosen character (below).
+
+**Characters:**
+- The problems should be "based on the character the user chooses at the
+  beginning and the different personified problems they perceive throughout
+  their life."
+- Characters should match the scenario animals, e.g. **Bao the Panda Cub**.
+  Each has a **suggested name** that the student can change.
+- A mix: keep some existing characters, add new ones. The dino stays the same
+  dino, "just cuter" (it looks ugly now). All characters keep a pixel look.
+- **6 scenarios per character per level**, with a button on each set to move
+  up to the next level. Default: stay on the current level.
+
+Status: **designing character looks.** Nothing built yet.
+
 ## Open questions (to ask next, one at a time)
 
 - Does any text show in the game on Jenny's computer (e.g. "Play" on the menu)?
