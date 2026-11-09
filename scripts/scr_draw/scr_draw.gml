@@ -319,9 +319,7 @@ function draw_action_button(cx, cy, art, hot, count, enabled, tip = "", show_tip
     draw_circle(cx, cy, r - 6, false);
 
     // white icon: the object's own art, as a silhouette
-    var isc = 2;
-    draw_pixel_silhouette(art.map, cx - OBJ_GRID * isc * 0.5, cy - OBJ_GRID * isc * 0.5,
-                          isc, C.white, enabled ? 1 : 0.6);
+    draw_art_silhouette(art, cx, cy, OBJ_GRID * 2, C.white, enabled ? 1 : 0.6);
 
     // little counter when the same button was picked more than once
     if (count > 1) {

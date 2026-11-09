@@ -165,6 +165,11 @@ function art_chars() {
             ]
         }
     };
+    // name of each one's smooth picture (scr_smooth_art): art_char_<key>.png
+    var names = variable_struct_get_names(global.art_chars_cache);
+    for (var n = 0; n < array_length(names); n++) {
+        global.art_chars_cache[$ names[n]].smooth = "char_" + names[n];
+    }
     return global.art_chars_cache;
 }
 

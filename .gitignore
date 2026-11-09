@@ -63,3 +63,5 @@ Build
 
 # GameMaker local build/run output (not source)
 output/
+# Python cache from tools/art
+__pycache__/

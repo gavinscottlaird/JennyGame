@@ -23,7 +23,7 @@ for (var i = 0; i < array_length(fl); i++) {
     draw_rectangle(r[0], r[1], r[2], r[3], false);
 
     var ikey = icons[$ fl[i].key];
-    draw_pixel_map(A[$ ikey].map, A[$ ikey].pal,
+    draw_art(A[$ ikey],
                    (r[0] + r[2]) * 0.5 - OBJ_W * 0.5, r[1] + 16, OBJ_SCALE);
     draw_txt((r[0] + r[2]) * 0.5, r[3] - 40, fl[i].label, 3, C.ink, fa_center, fa_top);
 }
