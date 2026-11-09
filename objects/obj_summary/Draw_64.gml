@@ -18,7 +18,7 @@ if (rec == undefined) {
     var a     = chars[$ akey];
 
     draw_panel(40, 96, SCR_W - 170, 276);
-    draw_pixel_map(a.map, a.pal, 70, 112, 3.4);
+    draw_art(a, 70, 112, 3.4);
 
     draw_txt(200, 120, rec.name, 4, C.ink, fa_left, fa_top);
     draw_txt(200, 170, "Tries: " + string(rec.plays), 2, C.wall, fa_left, fa_top);

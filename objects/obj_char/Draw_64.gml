@@ -26,7 +26,7 @@ for (var i = 0; i < array_length(order); i++) {
     var ax = (r[0] + r[2]) * 0.5;
     var ay = r[1] + 46;
     var hop = (hot || on) ? -abs(sin(t * 0.08 + i)) * 8 : 0;
-    draw_pixel_map(a.map, a.pal, ax - CHAR_W * 0.5, ay + hop, CHAR_SCALE);
+    draw_art(a, ax - CHAR_W * 0.5, ay + hop, CHAR_SCALE);
 
     draw_txt(ax, r[3] - 54, a.label, 3, C.ink, fa_center, fa_top);
     if (on) {

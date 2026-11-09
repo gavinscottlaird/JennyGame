@@ -20,7 +20,7 @@ for (var i = 0; i < array_length(order); i++) {
     draw_set_colour(C.shade);
     draw_rectangle(ax - 30, 402, ax + 30, 410, false);
     draw_set_alpha(1);
-    draw_pixel_map(a.map, a.pal, ax - CHAR_W * 0.5, ay - CHAR_H, CHAR_SCALE);
+    draw_art(a, ax - CHAR_W * 0.5, ay - CHAR_H, CHAR_SCALE);
 }
 
 var php = hit_rect(mx, my, rect_play);

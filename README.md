@@ -19,8 +19,9 @@ XP is earned for steps that were both **done in the right order** and **named in
 the written prediction**. Every decision is logged per player name for the
 therapist.
 
-Open `JennyGame.yyp` in GameMaker and press Run. No sprites are needed — all art
-is pixel data in code. Text uses the Atkinson Hyperlegible font files in
+Open `JennyGame.yyp` in GameMaker and press Run. No sprite resources are needed:
+the new smooth pictures are PNG files in `datafiles/` (`art_*.png`) loaded while
+the game runs, and anything without a PNG is still pixel data in code. Text uses the Atkinson Hyperlegible font files in
 `datafiles/` (free under the SIL Open Font License, included there); the old
 `fonts/fnt_pix` is kept as a backup.
 
@@ -218,6 +219,13 @@ sentences, and **"Try again"** rather than "Retry".
 - **Art** — `scr_art_chars` (avatars, 16×20) and `scr_art_objects` (objects,
   16×16). Both are ASCII maps with a letter per colour and `.` for see-through,
   so a new object is just 16 lines of text plus a label.
+- **Smooth art (Nov 2026)** — `scr_smooth_art`. An avatar or object whose
+  `datafiles/art_char_<key>.png` / `art_obj_<key>.png` exists is drawn from that
+  picture instead of its pixel map; scenes get a background picture
+  (`art_bg_*.png`, chosen in `scene_bg_name`). The pictures are made from SVG
+  code in `tools/art/` (`python3 tools/art/export.py` rewrites the PNGs; new
+  PNGs must also be added to Included Files in `JennyGame.yyp`).
+  `SMOOTH_ART_ON false` turns the old pixel art back on everywhere.
 - **Scenarios** — `scr_scenarios`. Add an entry with `spots`, `correct`,
   `step_words`, `obsess` and the five outcome lines. Object positions are worked
   out automatically (`layout_positions`), so buttons can never collide: up to four

@@ -25,3 +25,5 @@ Notes for when we start:
   objects and 16x20 characters. A bigger sprite size or real sprite resources
   may be needed; decide that during planning.
 - Keep the pixel look Jenny asked for, and keep Dot's chosen design (version 1).
+- **Update 2026-11-08:** Jenny changed her mind: no pixelated characters; smooth
+  art with clear faces. Started: see "Current task: smooth art" in HANDOFF.md.

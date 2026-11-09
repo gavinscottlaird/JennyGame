@@ -748,5 +748,10 @@ function art_objects() {
             "koook.....kpppk.",
             "kk.kk.....kk.kk." ] }
     };
+    // name of each one's smooth picture (scr_smooth_art): art_obj_<key>.png
+    var names = variable_struct_get_names(global.art_objects_cache);
+    for (var n = 0; n < array_length(names); n++) {
+        global.art_objects_cache[$ names[n]].smooth = "obj_" + names[n];
+    }
     return global.art_objects_cache;
 }

@@ -179,6 +179,50 @@ the same. Her rules and picks are in PLANNING_NOTES.md (2026-11-08).
 - **Next:** Jenny plays it; then add the other characters and more scenarios
   one at a time.
 
+## Current task: smooth art in the game (2026-11-08)
+
+**Asked by Jenny** (while away): "Put it all in the code and implement it."
+Branch `jenny/smooth-art`, pull request open, **not merged** until Jenny checks
+it (she wants `main` to stay the only lasting version, so the branch is deleted
+after merging). Version label: "Version: Nov 8 - smooth art test".
+
+What changed:
+- New smooth pictures (approved style: one smooth outline, clear faces) are PNG
+  files in `datafiles/` and drawn by `scripts/scr_smooth_art`.
+- Avatar: **Dot the Dino** now uses the approved smooth Dot. Robot, cat and kid
+  have no smooth version yet, so they still use pixel art (mixed look for now).
+- Objects with smooth pictures: river, bush, thorns, cave, shy, group, grass,
+  hill (all the Dot levels A-D). Older objects (bed, fridge, ...) stay pixel.
+- The action buttons show the smooth picture as a white icon.
+- The playing screen has a background picture chosen by its objects: Level A/B
+  meadow, Level C hilltop sunset, Level D forest, the playground meadow, the rest
+  a cozy room. Menu screens keep the old backdrop. A cave-inside background is
+  included but unused.
+- Extra character pictures (Bao the panda, Kiko the cat, Buzz the bee, Pip the
+  penguin, Bun the bunny, with sad/angry/excited/scared/shy faces) are included
+  as files only, ready for later. They are not in the game yet.
+- The backgrounds in the game are a redrawn layout of the preview sheet: the
+  ground starts higher so the objects (back row) and Dot (front) both stand on
+  ground. Source: `tools/art/bgs_game.py`. Preview-only sheet: `tools/art/bgs2.py`.
+
+Checks actually done: rendered all PNGs; made a mock-up of the playing screen
+(same sizes and positions as the code) for each background to check that things
+stand on the ground and do not cover the buttons. **Not run in GameMaker** (no
+GameMaker in the cloud workspace), so nothing here is proven to build.
+
+Play check for Jenny (about 5 minutes):
+1. Get the branch (GitHub Desktop: Fetch, switch to `jenny/smooth-art`), open
+   `JennyGame.yyp`, press Run. Title shows "Nov 8 - smooth art test".
+2. Pick Dot. Dot should look smooth on the character screen (others pixel).
+3. Play Levels A-D: each has a picture background, smooth objects, smooth Dot
+   walking; tap the round buttons (white icons), finish a level, see the ending.
+4. Look for: blurry or missing pictures, things floating, text hard to read.
+5. If anything fails to build, the quick fix is `#macro SMOOTH_ART_ON false` in
+   `scripts/scr_smooth_art` (back to pixel art), and tell Claude the error text.
+
+Next decisions (Jenny): make smooth robot/cat/kid avatars, or swap them for the
+new animal characters; redraw older objects; sizes if pictures look too small.
+
 ## One version only (2026-11-08)
 
 Jenny asked for a single version: the Dot test run (Levels A-D) is now `main`,

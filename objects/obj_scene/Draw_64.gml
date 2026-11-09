@@ -7,7 +7,7 @@ var L  = plan_layout();
 var G  = is_choice ? guide_now() : undefined;
 var matched = is_choice && result_on && outcome_score != undefined && outcome_score.xp == 2;
 
-draw_backdrop(true);
+draw_scene_backdrop(sc.spots);
 
 // ---------------------------------------------------------------- objects
 for (var oi = 0; oi < array_length(sc.spots); oi++) {
@@ -23,7 +23,7 @@ for (var oi = 0; oi < array_length(sc.spots); oi++) {
     draw_set_colour(C.shade);
     draw_rectangle(op.x - OBJ_W * 0.4, op.y + OBJ_H - 6, op.x + OBJ_W * 0.4, op.y + OBJ_H + 2, false);
     draw_set_alpha(1);
-    draw_pixel_map(A[$ okey].map, A[$ okey].pal, op.x - OBJ_W * 0.5, op.y + bounce, OBJ_SCALE);
+    draw_art(A[$ okey], op.x - OBJ_W * 0.5, op.y + bounce, OBJ_SCALE);
 
     // choice levels: what each thing does is always written under it
     // (no need to find it by hovering), plus its step number once it is in the plan
@@ -80,7 +80,7 @@ draw_set_colour(C.shade);
 draw_rectangle(draw_x - 26, draw_y - 6, draw_x + 26, draw_y + 4, false);
 draw_set_alpha(1);
 
-draw_pixel_map(art.map, art.pal,
+draw_art(art,
                draw_x - CHAR_W * 0.5 + lean, draw_y - CHAR_H + bob,
                CHAR_SCALE, 1, flip);
 
@@ -98,7 +98,7 @@ if (stage) {
         for (var ps = 0; ps < stack; ps++) {
             var psx = draw_x - OBJ_GRID * 2.4 * 0.5 + sin(anim_t * 0.1 + ps) * 6;
             var psy = draw_y - CHAR_H - 34 - ps * 30;
-            draw_pixel_map(A[$ pkey].map, A[$ pkey].pal, psx, psy, 2.4);
+            draw_art(A[$ pkey], psx, psy, 2.4);
         }
     }
     if (gag == "fly") {
@@ -108,7 +108,7 @@ if (stage) {
             var fang = anim_t * 0.05 + (fs / max(1, fn)) * 2 * pi;
             var fox  = draw_x + cos(fang) * 150 - OBJ_GRID * 1.1;
             var foy  = draw_y - 90 + sin(fang) * 54 - OBJ_GRID * 1.1;
-            draw_pixel_map(A[$ chain[fs]].map, A[$ chain[fs]].pal, fox, foy, 2.2);
+            draw_art(A[$ chain[fs]], fox, foy, 2.2);
         }
     }
     if (gag == "cheer" || matched) {
