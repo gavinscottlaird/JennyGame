@@ -10,6 +10,8 @@ Claude chat. Keep it short and replace stale status as the project changes.
   and local clones. A separate personal repo is optional for an independent game.
 - Shared version: `main`. New development uses a task branch and pull request;
   uploading a branch does not mean it has been merged into the shared version.
+  **Jenny (2026-11-08):** "I don't want any other branches." Keep `main` as the
+  only lasting version; ask her before leaving a task branch open.
 - Incoming collaborator: invitation/access **not verified**. Gavin needs her
   username to invite her through repo Settings > Collaborators > Add people;
   she accepts while signed in. Follow [WORKING_TOGETHER.md](WORKING_TOGETHER.md).
@@ -177,7 +179,24 @@ the same. Her rules and picks are in PLANNING_NOTES.md (2026-11-08).
 - **Next:** Jenny plays it; then add the other characters and more scenarios
   one at a time.
 
+## One version only (2026-11-08)
+
+Jenny asked for a single version: the Dot test run (Levels A-D) is now `main`,
+and the other branches (`jenny/level1-choices`, `jenny/planning-notes`,
+`jenny/backlog`) were merged in and deleted. Their history is kept in `main`.
+
+## Ideas for later
+
+Saved in [BACKLOG.md](BACKLOG.md). Added 2026-11-08: redo all art as clear,
+kid-friendly video game sprites. Not planned or built yet.
+
 ## Jenny's copy of the game
+
+**Update 2026-11-08:** Jenny now has a real Git clone at
+`C:\Users\JenniferNagrant\GameMakerProjects\JennyGame`, signed in to GitHub
+through Git Credential Manager (Git and GitHub CLI installed; `gh` itself is
+not signed in). Claude can commit and push from there. The older note below
+describes the downloaded `JennyGame-main` copy.
 
 Jenny plays from `C:\Users\JenniferNagrant\GameMakerProjects\JennyGame-main`.
 It is a downloaded copy, not a Git clone, so it does not update itself.
