@@ -1,6 +1,6 @@
 # Where we left off
 
-**Updated:** 2026-10-23. This is the shared note for the next person and the next
+**Updated:** 2026-11-08. This is the shared note for the next person and the next
 Claude chat. Keep it short and replace stale status as the project changes.
 
 ## Repository and ownership
@@ -141,6 +141,41 @@ They are at the end of the `levels` list in `scr_scenarios`.
   the ending matches the notes, then check points (2 right, 1 wrong, 0 for
   the outlier). Check Next level goes to Level 2, and the score screen lists
   the right scenarios.
+
+### Dot test run: Levels A-D (2026-11-08, built, not yet played)
+
+Jenny approved a small test of the new animal direction: swap the old dino for
+**Dot** and build one scenario for each problem set, leaving everything else
+the same. Her rules and picks are in PLANNING_NOTES.md (2026-11-08).
+
+- **Dot:** the dino avatar now uses Jenny's chosen look (version 1, legs level
+  with the belly). Its card says "Dot". `dino` in `scr_art_chars`.
+- **Levels:** the five old levels (fridge and bed, test, picture, movie,
+  muddy) were replaced by `dot_a`..`dot_d` in `scr_scenarios`: A = thirsty
+  (River, Berries), B = tired (Soft grass, Thorns), C = lonely (Hill, Cave),
+  D = shy dino and group (Shy dino, Group). Next level goes A > B > C > D.
+- **Cause and effect:** each action always has the same effect. The four
+  plans (one object, the other, or both in either order) each have their own
+  ending, and the four menu guesses are exactly those four endings.
+- **Scoring:** no outlier (`outlier : -1`). 2 points if the guess matches what
+  the plan caused, 0 otherwise. Older levels with an outlier still score
+  2/1/0. `score_choice` in `scr_score`.
+- **New object art:** river, bush, grass, thorns, hill, cave, shy, group in
+  `scr_art_objects`. Reminder line is now "Think: what will each action cause?"
+- `GAME_VERSION`: "Version: Nov 8 - Dot test run (Levels A-D)".
+- **Checks done:** brackets balanced in the changed GML files; every plan key
+  matches the two objects; picks 0-3 match the menu order; object art 16x16
+  and Dot 16x20; art previewed as a picture. **Not run in GameMaker.**
+- **Known gaps:** the text names Dot, so it reads oddly if a student picks
+  another avatar. The name box is still the student's own name (used for
+  their saved score), so Dot cannot be renamed yet without mixing up logs; a
+  separate character-name box is a later step. The room background is still
+  the indoor room.
+- **Jenny's play check:** pick Dot, type a made-up name. In each level try all
+  four plans (each object alone, then both orders), and check the ending and
+  the 2 or 0 points. Check Next level goes A > B > C > D, then See my score.
+- **Next:** Jenny plays it; then add the other characters and more scenarios
+  one at a time.
 
 ## Jenny's copy of the game
 

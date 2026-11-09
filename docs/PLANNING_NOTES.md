@@ -160,6 +160,78 @@ starts on a random Level 1 scenario (fridge and bed, or one of these three).
 **Next level** goes to Level 2. A dropped idea: a "project and TV" scenario,
 because its costs needed extra variables.
 
+## 2026-11-08: New direction — animal characters and problem sets
+
+**Jenny:** "I have decided that I don't like this version much. It's too
+unrealistic." She wants animal problems: some distance from real life, but
+students can connect to them and try to fix them.
+
+**Rules for problems (Jenny's words and choices):**
+- "I'm not interested in the solutions being something they can't do
+  themselves." The fix must be something the **character itself** can do
+  ("Buzz can't open the window").
+- Wrong options must not be close to right: she rejected a goldfish scenario
+  because two answers sounded plausible.
+
+**Problem sets (Jenny named them):**
+- **Set A:** simple, one step (like Buzz the Bee flying out the open door).
+- **Set B:** a little harder, two steps, with a trap (like Kiko the Cat:
+  chair first, then the floor).
+- **Set C:** one step, involving an emotion — the character's own or someone
+  they meet. Jenny: "I really like these."
+- **Set D:** two steps, with one emotion. Jenny: "These are fantastic."
+
+Claude's drafts of A–D (6 + 6 + 4 + 4 scenarios) are in the chat of
+2026-11-08; they need to be rewritten around the chosen character (below).
+
+**Characters:**
+- The problems should be "based on the character the user chooses at the
+  beginning and the different personified problems they perceive throughout
+  their life."
+- Characters should match the scenario animals, e.g. **Bao the Panda Cub**.
+  Each has a **suggested name** that the student can change.
+- A mix: keep some existing characters, add new ones. The dino stays the same
+  dino, "just cuter" (it looks ugly now). All characters keep a pixel look.
+- **6 scenarios per character per level**, with a button on each set to move
+  up to the next level. Default: stay on the current level.
+
+Status: Dot's look chosen (version 1, legs level with the belly).
+
+## 2026-11-08: Dot test run
+
+**Jenny:** "I want this to be the test run so leave everything else the same
+and just switch out the dino with the 1 scenario per level so 4 levels total."
+Scenarios must make sense for a long-necked dino.
+
+**Cause and effect (Jenny's correction):** "This is CAUSE and EFFECT. The
+consequences should match the specific actions the character does." Every
+choice has a matching outcome; "there's no correct answer, there's just
+corresponding situations and their outcomes." Each action always has the same
+effect (the same action can't lead to two different results). With two
+actions, both effects happen in order; order matters only when the first
+changes the scene for the second.
+
+**For set D:** Dot approaches others who have emotions.
+
+**Picked (A1, B4, C3, D5):**
+
+| Level | Situation | Objects |
+|---|---|---|
+| A | Dot is very thirsty. | River, Berry bush (sour) |
+| B | Dot is tired; her nap spot is past a thorny bush. | Soft grass, Thorns |
+| C | Dot is lonely; her herd is far away. | Hill (call out), Cave (hide) |
+| D | A shy dino sits alone; a group is playing. | Shy dino, Group |
+
+Each plan's ending (A as an example): River = thirst goes away; Berries =
+mouth gets dry, still thirsty; River then Berries = thirst goes away, then
+mouth dry again; Berries then River = mouth dry, then thirst goes away. Full
+text for all four is in `scr_scenarios` (`dot_a`..`dot_d`).
+
+**Scoring (Claude suggested, Jenny said go ahead):** 2 points for a matching
+guess, 0 otherwise. No outlier in these levels.
+
+**Built 2026-11-08** on `jenny/level1-choices`, not yet played.
+
 ## Open questions (to ask next, one at a time)
 
 - Does any text show in the game on Jenny's computer (e.g. "Play" on the menu)?
